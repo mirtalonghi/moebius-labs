@@ -344,7 +344,7 @@ const Hero: React.FC = () => {
             Moebius Labs
           </h1>
           <p className="text-lg md:text-xl text-slate-400 mb-8 font-light tracking-tight">
-            Desarrollador Full Stack & Diseñador UI/UX
+            Estudio de diseño y desarrollo profesional web
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
