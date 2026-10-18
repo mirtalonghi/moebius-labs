@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Send } from 'lucide-react';
+import { Mail, Github, Send, MessageCircle } from 'lucide-react';
 
 const EMAIL = "mirta.wolfsdorf@gmail.com";
+// Celular 011 4447 4421 en formato internacional para WhatsApp (54 9 11 ...)
+const WHATSAPP = `https://wa.me/5491144474421?text=${encodeURIComponent("Hola Mirta, vi tu web y quiero consultarte por un proyecto.")}`;
 
 const socialLinks = [
+  {
+    name: "WhatsApp",
+    icon: <MessageCircle size={24} />,
+    url: WHATSAPP,
+    color: "hover:bg-green-600"
+  },
   {
     name: "GitHub",
     icon: <Github size={24} />,
@@ -64,6 +72,19 @@ const Contact: React.FC = () => {
           ))}
         </div>
 
+        <motion.a
+          href={WHATSAPP}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center justify-center gap-3 min-h-touch mb-12 px-8 py-4 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-bold text-lg transition-colors"
+        >
+          <MessageCircle size={22} />
+          Escribime por WhatsApp
+        </motion.a>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -71,7 +92,7 @@ const Contact: React.FC = () => {
           className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 rounded-3xl"
         >
           <div className="bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
-            <h3 className="text-2xl font-bold text-white mb-6">Envíame un mensaje directo</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">O mandame un mail</h3>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-lg mx-auto">
               <input
                 type="text"
