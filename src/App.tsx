@@ -25,7 +25,7 @@ function App() {
           {/* Footer */}
           <footer className="py-12 px-6 text-center border-t border-slate-900 bg-slate-950">
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Tu Nombre. Diseñado con ❤️ para reclutadores.
+              © {new Date().getFullYear()} Mirta Longhitano · Moebius Labs — Diseño y desarrollo web
             </p>
           </footer>
         </div>

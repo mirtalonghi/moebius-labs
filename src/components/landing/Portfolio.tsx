@@ -48,33 +48,6 @@ const projects: Project[] = [
     tags: ["Solidity", "Scaffold-ETH", "Next.js", "Blockchain"],
     detailPage: "/proyectos/simpledex/",
     github: "https://github.com/mirtalonghi/simpleDex"
-  },
-  {
-    type: 'link',
-    title: "E-commerce Platform",
-    description: "Una plataforma completa con React, Node.js y Stripe.",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800",
-    tags: ["React", "Node.js", "Tailwind"],
-    link: "#",
-    github: "#"
-  },
-  {
-    type: 'link',
-    title: "AI Chat Assistant",
-    description: "Asistente inteligente utilizando OpenAI API y Next.js.",
-    image: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&q=80&w=800",
-    tags: ["Next.js", "OpenAI", "TypeScript"],
-    link: "#",
-    github: "#"
-  },
-  {
-    type: 'link',
-    title: "Fitness Tracker App",
-    description: "Aplicación móvil para seguimiento de entrenamientos.",
-    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
-    tags: ["React Native", "Firebase"],
-    link: "#",
-    github: "#"
   }
 ];
 
