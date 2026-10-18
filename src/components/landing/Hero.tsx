@@ -282,8 +282,8 @@ const Hero: React.FC = () => {
   const handleDownload = () => {
     hapticFeedback('medium');
     const link = document.createElement('a');
-    link.href = '#';
-    link.download = 'CV_Resumido.pdf';
+    link.href = '/CV_Mirta_Longhitano.pdf';
+    link.download = 'CV_Mirta_Longhitano.pdf';
     link.click();
   };
 
