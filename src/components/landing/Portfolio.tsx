@@ -22,12 +22,12 @@ type Project = {
 
 const projects: Project[] = [
   {
-    type: 'link',
+    type: 'detail',
     title: "Faiwel Wolfsdorf",
     description: "Sitio web para un artista surrealista: un viaje cromático desde Varsovia hasta Sudamérica, con galería de obra multiidioma y experiencia inmersiva.",
     image: "/projects/faiwelwolfsdorf.webp",
     tags: ["React", "Vite", "Tailwind", "Framer Motion"],
-    link: "https://faiwelwolfsdorf.com",
+    detailPage: "/proyectos/faiwel-wolfsdorf/",
     github: "https://github.com/mirtalonghi/wolfsdorff"
   },
   {
