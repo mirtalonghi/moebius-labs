@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
     // Fondo y partículas siguen el modo claro / oscuro
     const applyTheme = () => {
       const dark = document.documentElement.classList.contains('dark');
-      renderer.setClearColor(dark ? 0x000000 : 0xeddfc2, 1);
+      renderer.setClearColor(dark ? 0x000000 : 0xeae4f3, 1);
       (colorAttr.array as Float32Array).set(dark ? colors : lightColors);
       colorAttr.needsUpdate = true;
     };
@@ -334,9 +334,9 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#EDDFC2] dark:bg-slate-950">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#EAE4F3] dark:bg-slate-950">
       <div ref={containerRef} className="absolute inset-0 z-0" />
-      <div className="absolute inset-0 bg-[#F6EDDA]/30 dark:bg-black/35" />
+      <div className="absolute inset-0 bg-[#F4F0FA]/30 dark:bg-black/35" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
@@ -376,7 +376,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={togglePlay}
-              className="flex items-center gap-2 bg-[#F6EDDA]/70 text-stone-900 border border-[#CEB284] hover:bg-[#F6EDDA] dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-[#F4F0FA]/70 text-stone-900 border border-[#C9BCDF] hover:bg-[#F4F0FA] dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
               {isPlaying ? 'Pausar música' : 'Reproducir música'}
