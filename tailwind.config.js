@@ -10,11 +10,11 @@ export default {
       // Modo claro: beige dorado
       colors: {
         sand: {
-          50: '#FBF6EC',
-          100: '#F4ECDC',
-          200: '#E8DBC0',
-          300: '#D8C49C',
-          400: '#C2A472',
+          50: '#F6EDDA',
+          100: '#EDDFC2',
+          200: '#E0CCA3',
+          300: '#CEB284',
+          400: '#B8985E',
         },
       },
       fontFamily: {

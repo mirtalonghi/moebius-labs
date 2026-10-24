@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
     // Fondo y partículas siguen el modo claro / oscuro
     const applyTheme = () => {
       const dark = document.documentElement.classList.contains('dark');
-      renderer.setClearColor(dark ? 0x000000 : 0xf4ecdc, 1);
+      renderer.setClearColor(dark ? 0x000000 : 0xeddfc2, 1);
       (colorAttr.array as Float32Array).set(dark ? colors : lightColors);
       colorAttr.needsUpdate = true;
     };
