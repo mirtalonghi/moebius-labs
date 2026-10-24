@@ -2,24 +2,41 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
 
-const education = [
+// Formación real (del CV). Del más nuevo al más antiguo.
+const education: { degree: string; school: string; period?: string; description: string }[] = [
   {
-    degree: "Grado en Ingeniería Informática",
-    school: "Universidad Tecnológica",
-    period: "2018 - 2022",
-    description: "Especialización en desarrollo de software y sistemas distribuidos."
+    degree: "Cursos de desarrollo web e inteligencia artificial",
+    school: "Platzi",
+    period: "2026",
+    description: "Creación de páginas web con V0, Introducción a la web (historia y funcionamiento de Internet) e Introducción a la inteligencia artificial."
   },
   {
-    degree: "Master en Desarrollo Web Full Stack",
-    school: "Digital Academy",
-    period: "2022 - 2023",
-    description: "Enfoque intensivo en tecnologías modernas como React, Node.js y Cloud Computing."
+    degree: "Developer Pack en Ethereum (Solidity)",
+    school: "ETH-KIPU",
+    period: "2024",
+    description: "Desarrollo de contratos inteligentes en Solidity. Trabajo final: SimpleDEX, un exchange descentralizado."
   },
   {
-    degree: "Certificación AWS Solutions Architect",
-    school: "Amazon Web Services",
-    period: "2023",
-    description: "Diseño de arquitecturas escalables y seguras en la nube."
+    degree: "Front-End JavaScript",
+    school: "Talento Tech",
+    period: "2024",
+    description: "Desarrollo de interfaces web con HTML, CSS y JavaScript."
+  },
+  {
+    degree: "Full Stack Python, Django y Desarrollo Web con Node.js",
+    school: "Codo a Codo 4.0",
+    period: "2022 - 2024",
+    description: "Tres cursos de desarrollo full stack: Python y Django en el back-end, JavaScript y Node.js en la web."
+  },
+  {
+    degree: "Analista en Computación Administrativa",
+    school: "Instituto Superior de Buenos Aires",
+    description: "Título oficial. Título intermedio: Técnica Superior en Estadística de Empresas."
+  },
+  {
+    degree: "Licenciatura en Análisis de Sistemas (cursada parcial)",
+    school: "Facultad de Ingeniería, UBA",
+    description: "Materias aprobadas, entre otras: Algoritmos y Programación I, II y III, Organización de Datos y Técnicas de Diseño."
   }
 ];
 
@@ -33,8 +50,8 @@ const Education: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Estudios & Educación</h2>
-          <p className="text-slate-400">Mi trayectoria académica y certificaciones profesionales.</p>
+          <h2 className="text-4xl font-bold text-white mb-4">Formación</h2>
+          <p className="text-slate-400">Formación en sistemas y actualización constante en desarrollo web.</p>
         </motion.div>
 
         <div className="space-y-8">
@@ -54,10 +71,12 @@ const Education: React.FC = () => {
                     <GraduationCap className="text-blue-400" size={20} />
                     {item.degree}
                   </h3>
-                  <span className="flex items-center gap-1 text-sm font-medium text-slate-500 bg-slate-800 px-3 py-1 rounded-full">
-                    <Calendar size={14} />
-                    {item.period}
-                  </span>
+                  {item.period && (
+                    <span className="flex items-center gap-1 text-sm font-medium text-slate-500 bg-slate-800 px-3 py-1 rounded-full shrink-0">
+                      <Calendar size={14} />
+                      {item.period}
+                    </span>
+                  )}
                 </div>
                 <p className="text-blue-400 font-medium mb-2">{item.school}</p>
                 <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
