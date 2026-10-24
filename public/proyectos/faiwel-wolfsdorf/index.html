@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Faiwel Wolfsdorf — caso de estudio</title>
-<meta name="description" content="Cómo la web del pintor surrealista Faiwel Wolfsdorf pasó de una plantilla de 2010 a un sitio con su propia voz.">
+<meta name="description" content="Cómo la web del pintor surrealista Faiwel Wolfsdorf pasó de una web de 2010 a un sitio con su propia voz.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -68,18 +68,11 @@ section{padding-top:96px}
 .head p{color:var(--muted);margin:0;max-width:52ch}
 
 /* punto de partida */
-.before{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px;align-items:start}
-.shot{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-.pin{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--accent);color:#fff;font-weight:600;font-size:14px;display:grid;place-items:center;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .2s;cursor:pointer}
-.pin.on{transform:scale(1.3)}
-.pin::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--accent);opacity:0;transition:opacity .2s}
-.pin.on::after{opacity:.6}
-.issues{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.issues li{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:16px;border-radius:12px;cursor:default;transition:background .2s}
-.issues li.on{background:var(--accent-soft)}
-.issues .n{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:600;font-size:14px;display:grid;place-items:center}
-.issues h3{font-size:21px;line-height:1.25}
-.issues p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.gains{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.gains li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.gains .n{font-size:12px;letter-spacing:.2em;color:var(--accent);font-weight:600}
+.gains h3{font-size:22px;line-height:1.2;margin-top:10px}
+.gains p{margin:8px 0 0;color:var(--muted);font-size:15px}
 
 /* recorrido */
 .tour{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center}
@@ -146,7 +139,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .reveal.in{opacity:1;transform:none}
 
 @media (max-width:920px){
-  .head,.before,.tour,.cta{grid-template-columns:minmax(0,1fr);gap:18px}
+  .gains{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .head,.tour,.cta{grid-template-columns:minmax(0,1fr);gap:18px}
   .choices{grid-template-columns:minmax(0,1fr)}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .nav nav{display:none}
@@ -156,9 +150,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .hero p{font-size:16px}
   .voice{padding:40px 18px}
   .cta{padding:26px}
-  .pin,.issues .n{width:24px;height:24px;font-size:12px;margin:-12px 0 0 -12px}
-  .issues .n{margin:0}
-  .issues li{grid-template-columns:24px 1fr;padding:12px}
+  .gains{grid-template-columns:minmax(0,1fr)}
   .tag{font-size:10px;top:8px;padding:4px 7px}
   .tag.l{left:8px} .tag.r{right:8px}
   .compare .knob{width:38px;height:38px;margin:-19px 0 0 -19px}
@@ -187,10 +179,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <div class="wrap hero">
     <span class="label">Caso de estudio · Rediseño web</span>
     <h1>De una web del 2010 al presente con tecnologías que nos sumergen en el mundo surrealista del artista</h1>
-    <p>La web de Faiwel Wolfsdorf no decía quién era él. El rediseño le dio una entrada con su propia voz y ordenó toda su obra en un solo lugar.</p>
+    <p>El rediseño le dio a la web de Faiwel Wolfsdorf una entrada con su propia voz y reunió toda su obra en un solo lugar.</p>
 
     <div class="compare" id="compare" style="--pos:50%">
-      <img src="antes.webp" alt="La portada anterior: una plantilla gris con menú lateral y el afiche de una muestra." width="1557" height="844">
+      <img src="antes.webp" alt="La portada anterior, con menú lateral y el afiche de una muestra homenaje." width="1557" height="844">
       <img class="after" src="despues.webp" alt="La portada nueva: la frase del artista sobre un fondo de pintura, con su nombre arriba." width="1557" height="844">
       <span class="tag l">Antes</span>
       <span class="tag r">Ahora</span>
@@ -202,30 +194,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
   <section id="partida" class="wrap" aria-labelledby="t1">
     <div class="head reveal">
-      <div><span class="label">El punto de partida</span><h2 id="t1">Una web que había quedado en el tiempo</h2></div>
+      <div><span class="label">El punto de partida</span><h2 id="t1">Un nuevo comienzo para su obra</h2></div>
       <p>El sitio anterior estaba hecho en WordPress. Cumplió su función durante años, pero ya era momento de modernizar y conseguir que se conociera más al artista.</p>
     </div>
-    <div class="before">
-      <div class="shot reveal">
-        <img src="antes.webp" alt="Captura de la portada anterior con cuatro puntos marcados." width="1557" height="844" loading="lazy">
-        <span class="pin" data-i="1" style="left:27.2%;top:14.5%">1</span>
-        <span class="pin" data-i="2" style="left:56.7%;top:26%">2</span>
-        <span class="pin" data-i="3" style="left:21%;top:50%">3</span>
-        <span class="pin" data-i="4" style="left:62%;top:95.2%">4</span>
-      </div>
-      <ol class="issues reveal">
-        <li data-i="1"><span class="n">1</span><div><h3>El nombre era el de la plantilla</h3><p>Arriba de todo decía "Photo Capture Galleria", no "Faiwel Wolfsdorf".</p></div></li>
-        <li data-i="2"><span class="n">2</span><div><h3>Una portada detenida en un evento</h3><p>La home mostraba el afiche de una muestra homenaje y la seguía anunciando como "próximo evento".</p></div></li>
-        <li data-i="3"><span class="n">3</span><div><h3>Diez secciones superpuestas</h3><p>Catálogos, Obra – Galerías, Fotos e Ilustraciones repartían la obra en lugares distintos.</p></div></li>
-        <li data-i="4"><span class="n">4</span><div><h3>Tecnología de 2010</h3><p>El pie de página mostraba el año de la plantilla y los créditos de sus autores.</p></div></li>
-      </ol>
-    </div>
+    <ol class="gains">
+      <li class="reveal"><span class="n">01</span><h3>Su nombre al frente</h3><p>"Faiwel Wolfsdorf" encabeza cada página. Quien llega sabe desde el primer segundo de quién es la obra.</p></li>
+      <li class="reveal"><span class="n">02</span><h3>Una portada que perdura</h3><p>La home presenta su pensamiento con una frase propia. No depende de fechas ni hay que actualizarla.</p></li>
+      <li class="reveal"><span class="n">03</span><h3>Toda la obra en un recorrido</h3><p>Siete secciones con nombres claros y la galería organizada en 11 series, para encontrar cada pintura con facilidad.</p></li>
+      <li class="reveal"><span class="n">04</span><h3>Tecnología actual</h3><p>Se adapta a celulares y tablets, carga solo lo que se mira y se puede leer en cuatro idiomas.</p></li>
+    </ol>
   </section>
 
   <section id="entrada" class="wrap" aria-labelledby="t2">
     <div class="head reveal">
       <div><span class="label">La nueva entrada</span><h2 id="t2">Primero su pensamiento, después su presencia</h2></div>
-      <p>La home ya no anuncia un evento: recibe al visitante con una frase del artista que sintetiza su pensamiento y lo introduce de golpe en su mundo surrealista.</p>
+      <p>La home recibe al visitante con una frase del artista que sintetiza su pensamiento y lo introduce de golpe en su mundo surrealista.</p>
     </div>
     <div class="tour">
       <div class="browser reveal">
@@ -327,18 +310,6 @@ const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 // comparador
 const cmp = $("#cmp"), box = $("#compare");
 cmp.addEventListener("input", () => box.style.setProperty("--pos", cmp.value + "%"));
-
-// puntos del sitio anterior <-> lista
-const pins = document.querySelectorAll(".pin"), items = document.querySelectorAll(".issues li");
-function mark(i) {
-  pins.forEach((p) => p.classList.toggle("on", p.dataset.i === i));
-  items.forEach((li) => li.classList.toggle("on", li.dataset.i === i));
-}
-[...pins, ...items].forEach((el) => {
-  el.addEventListener("mouseenter", () => mark(el.dataset.i));
-  el.addEventListener("click", () => mark(el.dataset.i));
-});
-document.querySelector(".before").addEventListener("mouseleave", () => mark(null));
 
 // video: se reproduce cuando está a la vista
 const vid = $("#vid"), vbtn = $("#vbtn");
