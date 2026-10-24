@@ -35,7 +35,6 @@ const Hero: React.FC = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 1);
     container.appendChild(renderer.domElement);
 
     const particleCount = 2500;
@@ -96,7 +95,10 @@ const Hero: React.FC = () => {
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    // Versión para modo claro: los mismos tonos, más intensos para que se vean sobre fondo claro
+    const lightColors = colors.map((c) => c * 0.75);
+    const colorAttr = new THREE.BufferAttribute(colors.slice(), 3);
+    geometry.setAttribute('color', colorAttr);
 
     const material = new THREE.PointsMaterial({
       size: 0.25,
@@ -106,6 +108,17 @@ const Hero: React.FC = () => {
 
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
+
+    // Fondo y partículas siguen el modo claro / oscuro
+    const applyTheme = () => {
+      const dark = document.documentElement.classList.contains('dark');
+      renderer.setClearColor(dark ? 0x000000 : 0xf8fafc, 1);
+      (colorAttr.array as Float32Array).set(dark ? colors : lightColors);
+      colorAttr.needsUpdate = true;
+    };
+    applyTheme();
+    const themeObserver = new MutationObserver(applyTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     const ambientLight = new THREE.AmbientLight(0x222222);
     scene.add(ambientLight);
@@ -267,6 +280,7 @@ const Hero: React.FC = () => {
       if (renderer.domElement.parentElement === container) {
         container.removeChild(renderer.domElement);
       }
+      themeObserver.disconnect();
       geometry.dispose();
       material.dispose();
       renderer.dispose();
@@ -320,9 +334,9 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950">
       <div ref={containerRef} className="absolute inset-0 z-0" />
-      <div className="absolute inset-0 bg-black/35" />
+      <div className="absolute inset-0 bg-white/30 dark:bg-black/35" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
@@ -334,16 +348,16 @@ const Hero: React.FC = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full"
+            className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-slate-900/5 border border-slate-900/10 dark:bg-white/5 dark:border-white/10 rounded-full"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-300 text-sm font-medium tracking-tight">Disponible para trabajar</span>
+            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">Disponible para trabajar</span>
           </motion.div>
 
-          <h1 className="font-display text-5xl md:text-7xl font-semibold text-white mb-4 tracking-tighter">
+          <h1 className="font-display text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white mb-4 tracking-tighter">
             Moebius Labs
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 mb-8 font-light tracking-tight">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 font-light tracking-tight">
             Estudio profesional de diseño y desarrollo web
           </p>
 
@@ -352,7 +366,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-white text-slate-950 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
             >
               <Download size={20} />
               Descargar CV
@@ -362,7 +376,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={togglePlay}
-              className="flex items-center gap-2 bg-slate-800/60 text-white border border-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm hover:bg-slate-700 transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-white/70 text-slate-900 border border-slate-300 hover:bg-white dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
               {isPlaying ? 'Pausar música' : 'Reproducir música'}
@@ -370,7 +384,7 @@ const Hero: React.FC = () => {
           </div>
 
           {errorMessage && (
-            <p className="mt-4 text-sm text-red-400">{errorMessage}</p>
+            <p className="mt-4 text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
           )}
         </motion.div>
       </div>
@@ -380,8 +394,8 @@ const Hero: React.FC = () => {
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute bottom-10 flex flex-col items-center gap-2"
       >
-        <span className="text-slate-400 text-xs uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={28} className="text-slate-400" />
+        <span className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest">Scroll</span>
+        <ChevronDown size={28} className="text-slate-500 dark:text-slate-400" />
       </motion.div>
     </section>
   );
