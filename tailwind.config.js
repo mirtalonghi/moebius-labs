@@ -7,14 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      // Modo claro: beige dorado
+      // Modo claro: beige dorado (de Mi Portfolio para abajo; el hero usa sus propios tonos)
       colors: {
         sand: {
-          50: '#F6EDDA',
-          100: '#EDDFC2',
-          200: '#E0CCA3',
-          300: '#CEB284',
-          400: '#B8985E',
+          50: '#EFE2C8',
+          100: '#E5D3AF',
+          200: '#D6BE90',
+          300: '#C4A673',
+          400: '#AC8A50',
         },
       },
       fontFamily: {
