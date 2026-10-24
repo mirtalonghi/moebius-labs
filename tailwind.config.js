@@ -7,6 +7,16 @@ export default {
   ],
   theme: {
     extend: {
+      // Modo claro: beige dorado
+      colors: {
+        sand: {
+          50: '#FBF6EC',
+          100: '#F4ECDC',
+          200: '#E8DBC0',
+          300: '#D8C49C',
+          400: '#C2A472',
+        },
+      },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
