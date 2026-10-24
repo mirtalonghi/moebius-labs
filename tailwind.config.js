@@ -10,11 +10,11 @@ export default {
       // Modo claro: beige dorado (de Mi Portfolio para abajo; el hero usa sus propios tonos)
       colors: {
         sand: {
-          50: '#EFE2C8',
-          100: '#E5D3AF',
-          200: '#D6BE90',
-          300: '#C4A673',
-          400: '#AC8A50',
+          50: '#F5ECD8',
+          100: '#ECDEC1',
+          200: '#DFCAA2',
+          300: '#CDB183',
+          400: '#B8975D',
         },
       },
       fontFamily: {
