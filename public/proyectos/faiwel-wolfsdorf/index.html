@@ -41,6 +41,8 @@ img,video{display:block;max-width:100%}
 .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .brand{font-family:"Source Serif 4",serif;font-size:19px;letter-spacing:.14em;text-transform:uppercase}
 .brand span{color:var(--soft)}
+a.brand{text-decoration:none}
+a.brand:hover,a.brand:hover span{color:var(--ink)}
 .nav nav{display:flex;gap:22px;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
 .nav nav a{text-decoration:none}
 .nav nav a:hover{color:var(--ink)}
@@ -166,7 +168,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <header class="wrap top">
   <a class="back" href="/#portfolio">← Volver al portfolio</a>
   <div class="nav">
-    <span class="brand">Faiwel <span>Wolfsdorf</span></span>
+    <a class="brand" href="https://faiwelwolfsdorf.com" target="_blank" rel="noopener noreferrer" aria-label="Faiwel Wolfsdorf: abrir el sitio del artista">Faiwel <span>Wolfsdorf</span></a>
     <nav aria-label="Secciones">
       <a href="#partida">Punto de partida</a>
       <a href="#entrada">La nueva entrada</a>
