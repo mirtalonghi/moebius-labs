@@ -65,8 +65,8 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className={`relative flex flex-col bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
-        isDetail ? 'border-amber-400/30 hover:border-amber-400/70' : 'border-slate-700 hover:border-blue-500/50'
+      className={`relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
+        isDetail ? 'border-amber-400/50 dark:border-amber-400/30 hover:border-amber-400/70' : 'border-slate-200 dark:border-slate-700 hover:border-blue-500/50'
       }`}
     >
       <div className="relative h-48 overflow-hidden">
@@ -85,7 +85,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       </div>
 
       <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-xl font-bold text-white mb-2">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
           {href ? (
             <a
               href={href}
@@ -98,20 +98,20 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
             project.title
           )}
         </h3>
-        <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">{project.description}</p>
         <div className="flex flex-wrap gap-2 mb-5">
           {project.tags.map((tag) => (
-            <span key={tag} className="text-xs font-medium px-2 py-1 bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20">
+            <span key={tag} className="text-xs font-medium px-2 py-1 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-md border border-blue-500/20">
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-slate-700/70">
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-700/70">
           {href ? (
             <span
               aria-hidden="true"
-              className={`inline-flex items-center gap-1.5 text-sm font-semibold ${isDetail ? 'text-amber-300' : 'text-blue-400'}`}
+              className={`inline-flex items-center gap-1.5 text-sm font-semibold ${isDetail ? 'text-amber-700 dark:text-amber-300' : 'text-blue-700 dark:text-blue-400'}`}
             >
               {isDetail ? (
                 <>Ver el proyecto <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
@@ -128,7 +128,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Ver el código de ${project.title} en GitHub`}
-              className="relative z-10 min-w-touch min-h-touch -m-2 inline-flex items-center justify-center rounded-full text-slate-400 hover:text-white transition-colors"
+              className="relative z-10 min-w-touch min-h-touch -m-2 inline-flex items-center justify-center rounded-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
             >
               <Github size={20} />
             </a>
@@ -141,7 +141,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
 const Portfolio: React.FC = () => {
   return (
-    <section id="portfolio" className="py-24 px-6 bg-slate-900">
+    <section id="portfolio" className="py-24 px-6 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -149,8 +149,8 @@ const Portfolio: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Mi Portfolio</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Mi Portfolio</h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Una selección de mis proyectos más recientes y destacados.
           </p>
         </motion.div>

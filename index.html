@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
@@ -8,6 +8,14 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#020617" />
     <title>Moebius — Diseño & Tecnología</title>
+    <script>
+      // Tema guardado por la persona (oscuro por defecto)
+      (function () {
+        var t = 'dark';
+        try { t = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+        document.documentElement.classList.toggle('dark', t === 'dark');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

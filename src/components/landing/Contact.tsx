@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 bg-slate-900">
+    <section id="contact" className="py-24 px-6 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,8 +49,8 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">¿Hablamos?</h2>
-          <p className="text-slate-400">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">¿Hablamos?</h2>
+          <p className="text-slate-600 dark:text-slate-400">
             Contame qué necesita tu negocio y te respondo con una propuesta.
           </p>
         </motion.div>
@@ -64,7 +64,7 @@ const Contact: React.FC = () => {
               aria-label={link.name}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.9 }}
-              className={`p-4 bg-slate-800 text-white rounded-2xl border border-slate-700 transition-all duration-300 ${link.color} group`}
+              className={`p-4 bg-white text-slate-800 border-slate-200 hover:text-white dark:bg-slate-800 dark:text-white dark:border-slate-700 rounded-2xl border transition-all duration-300 ${link.color} group`}
               title={link.name}
             >
               {link.icon}
@@ -91,8 +91,8 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 rounded-3xl"
         >
-          <div className="bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
-            <h3 className="text-2xl font-bold text-white mb-6">O mandame un mail</h3>
+          <div className="bg-white dark:bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">O mandame un mail</h3>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-lg mx-auto">
               <input
                 type="text"
@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu Nombre"
-                className="bg-slate-900 border border-slate-800 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
+                className="bg-slate-50 border border-slate-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
               />
               <input
                 type="email"
@@ -109,7 +109,7 @@ const Contact: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Tu Email"
-                className="bg-slate-900 border border-slate-800 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
+                className="bg-slate-50 border border-slate-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
               />
               <textarea
                 required
@@ -118,9 +118,9 @@ const Contact: React.FC = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tu Mensaje"
                 rows={4}
-                className="bg-slate-900 border border-slate-800 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                className="bg-slate-50 border border-slate-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
               ></textarea>
-              <button type="submit" className="flex items-center justify-center gap-2 bg-white text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-500 hover:text-white transition-all active:scale-95">
+              <button type="submit" className="flex items-center justify-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all active:scale-95">
                 <Send size={20} />
                 Enviar Mensaje
               </button>

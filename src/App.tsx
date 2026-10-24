@@ -3,11 +3,13 @@ import Hero from './components/landing/Hero';
 import Portfolio from './components/landing/Portfolio';
 import Education from './components/landing/Education';
 import Contact from './components/landing/Contact';
+import ThemeToggle from './components/landing/ThemeToggle';
 
 function App() {
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30">
+    <div className="w-full min-h-screen bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-200 selection:bg-blue-500/30">
       {/* Main content container */}
+      <ThemeToggle />
       <main className="w-full relative">
         {/* Safe area padding for mobile devices */}
         <div
@@ -23,7 +25,7 @@ function App() {
           <Contact />
           
           {/* Footer */}
-          <footer className="py-12 px-6 text-center border-t border-slate-900 bg-slate-950">
+          <footer className="py-12 px-6 text-center border-t border-slate-200 bg-white dark:border-slate-900 dark:bg-slate-950">
             <p className="text-slate-500 text-sm">
               © {new Date().getFullYear()} Mirta Longhitano · Moebius Labs — Diseño y desarrollo web
             </p>
