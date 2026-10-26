@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu Nombre"
-                className="bg-lila-100 border border-lila-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
+                className="bg-lila-100 border border-lila-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
               />
               <input
                 type="email"
@@ -109,7 +109,7 @@ const Contact: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Tu Email"
-                className="bg-lila-100 border border-lila-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
+                className="bg-lila-100 border border-lila-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
               />
               <textarea
                 required
@@ -118,7 +118,7 @@ const Contact: React.FC = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tu Mensaje"
                 rows={4}
-                className="bg-lila-100 border border-lila-200 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                className="bg-lila-100 border border-lila-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
               ></textarea>
               <button type="submit" className="flex items-center justify-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all active:scale-95">
                 <Send size={20} />
