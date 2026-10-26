@@ -65,7 +65,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className={`relative flex flex-col bg-papel-50 dark:bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
+      className={`relative flex flex-col bg-papel-100 dark:bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
         isDetail ? 'border-amber-400/50 dark:border-amber-400/30 hover:border-amber-400/70' : 'border-papel-200 dark:border-slate-700 hover:border-blue-500/50'
       }`}
     >

@@ -64,7 +64,7 @@ const Contact: React.FC = () => {
               aria-label={link.name}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.9 }}
-              className={`p-4 bg-papel-50 text-slate-800 border-papel-200 hover:text-white dark:bg-slate-800 dark:text-white dark:border-slate-700 rounded-2xl border transition-all duration-300 ${link.color} group`}
+              className={`p-4 bg-papel-100 text-slate-800 border-papel-200 hover:text-white dark:bg-slate-800 dark:text-white dark:border-slate-700 rounded-2xl border transition-all duration-300 ${link.color} group`}
               title={link.name}
             >
               {link.icon}
@@ -91,7 +91,7 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 rounded-3xl"
         >
-          <div className="bg-papel-50 dark:bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
+          <div className="bg-papel-100 dark:bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">O mandame un mail</h3>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-lg mx-auto">
               <input
