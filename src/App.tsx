@@ -7,7 +7,7 @@ import ThemeToggle from './components/landing/ThemeToggle';
 
 function App() {
   return (
-    <div className="w-full min-h-screen bg-lila-100 text-slate-800 dark:bg-slate-950 dark:text-slate-200 selection:bg-blue-500/30">
+    <div className="w-full min-h-screen bg-papel-100 text-slate-800 dark:bg-slate-950 dark:text-slate-200 selection:bg-blue-500/30">
       {/* Main content container */}
       <ThemeToggle />
       <main className="w-full relative">
@@ -25,7 +25,7 @@ function App() {
           <Contact />
           
           {/* Footer */}
-          <footer className="py-12 px-6 text-center border-t border-lila-200 bg-lila-100 dark:border-slate-900 dark:bg-slate-950">
+          <footer className="py-12 px-6 text-center border-t border-papel-200 bg-papel-100 dark:border-slate-900 dark:bg-slate-950">
             <p className="text-slate-500 text-sm">
               © {new Date().getFullYear()} Mirta Longhitano · Moebius Labs — Diseño y desarrollo web
             </p>

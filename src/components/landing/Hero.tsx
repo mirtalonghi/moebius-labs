@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
     // Fondo y partículas siguen el modo claro / oscuro
     const applyTheme = () => {
       const dark = document.documentElement.classList.contains('dark');
-      renderer.setClearColor(dark ? 0x000000 : 0xd3c7e8, 1);
+      renderer.setClearColor(dark ? 0x000000 : 0xf8f5ef, 1);
       (colorAttr.array as Float32Array).set(dark ? colors : lightColors);
       colorAttr.needsUpdate = true;
     };
@@ -334,9 +334,9 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-lila-100 dark:bg-slate-950">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
       <div ref={containerRef} className="absolute inset-0 z-0" />
-      <div className="absolute inset-0 bg-lila-50/30 dark:bg-black/35" />
+      <div className="absolute inset-0 bg-papel-50/30 dark:bg-black/35" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
@@ -376,7 +376,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={togglePlay}
-              className="flex items-center gap-2 bg-lila-50/70 text-slate-900 border border-lila-300 hover:bg-lila-50 dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-papel-50/70 text-slate-900 border border-papel-300 hover:bg-papel-50 dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
               {isPlaying ? 'Pausar música' : 'Reproducir música'}

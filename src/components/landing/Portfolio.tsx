@@ -65,8 +65,8 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className={`relative flex flex-col bg-lila-50 dark:bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
-        isDetail ? 'border-amber-400/50 dark:border-amber-400/30 hover:border-amber-400/70' : 'border-lila-200 dark:border-slate-700 hover:border-blue-500/50'
+      className={`relative flex flex-col bg-papel-50 dark:bg-slate-800 rounded-2xl overflow-hidden border transition-colors group focus-within:ring-2 focus-within:ring-blue-500 ${
+        isDetail ? 'border-amber-400/50 dark:border-amber-400/30 hover:border-amber-400/70' : 'border-papel-200 dark:border-slate-700 hover:border-blue-500/50'
       }`}
     >
       <div className="relative h-48 overflow-hidden">
@@ -107,7 +107,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           ))}
         </div>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-lila-200 dark:border-slate-700/70">
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-papel-200 dark:border-slate-700/70">
           {href ? (
             <span
               aria-hidden="true"
@@ -141,7 +141,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
 const Portfolio: React.FC = () => {
   return (
-    <section id="portfolio" className="py-24 px-6 bg-lila-100 dark:bg-slate-900">
+    <section id="portfolio" className="py-24 px-6 bg-papel-100 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

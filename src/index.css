@@ -26,10 +26,10 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-lila-100 dark:bg-slate-950;
+  @apply bg-papel-100 dark:bg-slate-950;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-lila-300 rounded-full hover:bg-lila-400 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors;
+  @apply bg-papel-300 rounded-full hover:bg-papel-400 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors;
 }
 

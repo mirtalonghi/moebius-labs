@@ -42,7 +42,7 @@ const education: { degree: string; school: string; period?: string; description:
 
 const Education: React.FC = () => {
   return (
-    <section className="py-24 px-6 bg-lila-100 dark:bg-slate-950">
+    <section className="py-24 px-6 bg-papel-100 dark:bg-slate-950">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,17 +62,17 @@ const Education: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative pl-8 border-l-2 border-lila-200 dark:border-slate-800 hover:border-blue-500 transition-colors"
+              className="relative pl-8 border-l-2 border-papel-200 dark:border-slate-800 hover:border-blue-500 transition-colors"
             >
-              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-lila-100 dark:bg-slate-950 border-2 border-blue-500 rounded-full" />
-              <div className="bg-lila-100 dark:bg-slate-900/50 p-6 rounded-2xl border border-lila-200 dark:border-slate-800 hover:bg-lila-200 dark:hover:bg-slate-900 transition-colors">
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-papel-100 dark:bg-slate-950 border-2 border-blue-500 rounded-full" />
+              <div className="bg-papel-100 dark:bg-slate-900/50 p-6 rounded-2xl border border-papel-200 dark:border-slate-800 hover:bg-papel-200 dark:hover:bg-slate-900 transition-colors">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <GraduationCap className="text-blue-600 dark:text-blue-400 shrink-0" size={20} />
                     {item.degree}
                   </h3>
                   {item.period && (
-                    <span className="flex items-center gap-1 text-sm font-medium text-slate-600 bg-lila-200 dark:text-slate-500 dark:bg-slate-800 px-3 py-1 rounded-full shrink-0">
+                    <span className="flex items-center gap-1 text-sm font-medium text-slate-600 bg-papel-200 dark:text-slate-500 dark:bg-slate-800 px-3 py-1 rounded-full shrink-0">
                       <Calendar size={14} />
                       {item.period}
                     </span>

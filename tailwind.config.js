@@ -7,14 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      // Modo claro: violeta tenue. lila-100 = fondo de todas las secciones (igual al de las partículas)
+      // Modo claro "Papel cálido": papel-100 = fondo de todas las secciones, papel-50 = tarjetas
       colors: {
-        lila: {
-          50: '#E5DEF3',
-          100: '#D3C7E8',
-          200: '#C0B1DD',
-          300: '#A895CC',
-          400: '#8771B3',
+        papel: {
+          50: '#FFFFFF',
+          100: '#F8F5EF',
+          200: '#EAE3D6',
+          300: '#D9CDB8',
+          400: '#B9A88B',
         },
       },
       fontFamily: {
