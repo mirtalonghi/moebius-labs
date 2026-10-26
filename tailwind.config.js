@@ -10,11 +10,11 @@ export default {
       // Modo claro: violeta tenue. lila-100 = fondo de todas las secciones (igual al de las partículas)
       colors: {
         lila: {
-          50: '#F6F3FB',
-          100: '#EAE4F3',
-          200: '#DAD1EA',
-          300: '#C9BCDF',
-          400: '#A998C9',
+          50: '#EEE9F7',
+          100: '#DFD6EE',
+          200: '#CDC1E4',
+          300: '#B9A9D6',
+          400: '#9784BE',
         },
       },
       fontFamily: {
