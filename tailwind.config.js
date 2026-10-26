@@ -7,14 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      // Modo claro: beige dorado (de Mi Portfolio para abajo; el hero usa sus propios tonos)
+      // Modo claro: violeta tenue. lila-100 = fondo de todas las secciones (igual al de las partículas)
       colors: {
-        sand: {
-          50: '#F5ECD8',
-          100: '#ECDEC1',
-          200: '#DFCAA2',
-          300: '#CDB183',
-          400: '#B8975D',
+        lila: {
+          50: '#F6F3FB',
+          100: '#EAE4F3',
+          200: '#DAD1EA',
+          300: '#C9BCDF',
+          400: '#A998C9',
         },
       },
       fontFamily: {
