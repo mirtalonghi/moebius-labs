@@ -31,13 +31,13 @@ const projects: Project[] = [
     github: "https://github.com/mirtalonghi/wolfsdorff"
   },
   {
-    type: 'link',
+    type: 'detail',
     title: "LOBA BAGUES",
     description: "Tienda online de cosmética con catálogo por categorías, promociones, carrito de compras y panel de gestión con autenticación.",
     image: "/projects/loba-bagues.webp",
     imagePosition: "object-top",
     tags: ["Next.js", "TypeScript", "Tailwind", "Better Auth"],
-    link: "https://loba-bagues.vercel.app",
+    detailPage: "/proyectos/loba-bagues/",
     github: "https://github.com/mirtalonghi/LOBABAGUES"
   },
   {
