@@ -32,7 +32,7 @@ img{display:block;max-width:100%;height:auto}
 .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
 .back{font-size:13px;color:#d8c9d2;text-decoration:none;letter-spacing:.04em}
 .back:hover{color:#fff;text-decoration:underline}
-.brand{font-family:"Playfair Display",serif;letter-spacing:.22em;font-size:18px;text-decoration:none;color:#fff;line-height:1.1}
+.brand{font-family:"Playfair Display",serif;letter-spacing:.22em;font-size:18px;color:#fff;line-height:1.1}
 .brand small{display:block;font-family:Kanit,sans-serif;font-size:9px;letter-spacing:.35em;color:#bfaab6;margin-top:3px}
 .bar nav{display:flex;gap:20px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d8c9d2}
 .bar nav a{text-decoration:none} .bar nav a:hover{color:#fff}
@@ -145,7 +145,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
 <body>
 <div class="bar">
   <div class="wrap">
-    <a class="brand" href="https://loba-bagues.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="LOBA BAGUES: abrir la tienda">LOBA BAGUES<small>COSMÉTICA</small></a>
+    <span class="brand">LOBA BAGUES<small>COSMÉTICA</small></span>
     <nav aria-label="Secciones">
       <a href="#pedido">El pedido</a>
       <a href="#miradas">Dos miradas</a>
@@ -161,7 +161,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     <h1>Una tienda que la dueña <em>maneja sola</em></h1>
     <p>Una marca de cosmética necesitaba vender online y administrar sus productos sin depender de nadie. Se diseñó y programó la tienda completa: catálogo, ofertas, carrito con pedidos por WhatsApp y un panel de gestión propio.</p>
     <div class="frame">
-      <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span>loba-bagues.vercel.app</span></div>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span>Tienda LOBA BAGUES</span></div>
       <img src="tienda.webp" width="1600" height="1000" alt="La tienda LOBA BAGUES: encabezado ciruela y la sección Precios especiales con productos en promoción.">
     </div>
   </div>
@@ -223,7 +223,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
       </div>
       <div class="views">
         <div class="frame desk">
-          <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span id="url">loba-bagues.vercel.app</span></div>
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span id="url">Tienda LOBA BAGUES</span></div>
           <img id="vDesk" class="swap" src="tienda.webp" width="1600" height="1000" alt="">
         </div>
         <div class="phone"><img id="vCel" class="swap" src="cel-tienda.webp" width="640" height="1385" alt=""></div>
@@ -245,7 +245,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     </ol>
     <div class="order">
       <div class="frame reveal">
-        <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span>loba-bagues.vercel.app</span></div>
+        <div class="dots" aria-hidden="true"><i></i><i></i><i></i><span>Tienda LOBA BAGUES</span></div>
         <img src="carrito.webp" width="1600" height="1000" loading="lazy" alt="El carrito con dos productos, el total y el aviso de que el pedido se envía por WhatsApp.">
       </div>
       <div class="reveal">
@@ -282,16 +282,15 @@ Total: $27.400<time>19:42 ✓✓</time></div>
   <div class="wrap">
     <div class="cta reveal">
       <div>
-        <h2>Recorré la tienda</h2>
-        <p>Catálogo, ofertas y pedidos por WhatsApp, funcionando.</p>
+        <h2>¿Tenés un emprendimiento?</h2>
+        <p>Tu propia tienda, que manejás vos, sin comisiones por venta.</p>
       </div>
       <div class="acts">
-        <a class="btn main" href="https://loba-bagues.vercel.app" target="_blank" rel="noopener noreferrer">Visitar LOBA BAGUES ↗</a>
+        <a class="btn main" href="/#contact">Contame tu proyecto</a>
         <a class="btn" href="/#portfolio">Volver al portfolio</a>
       </div>
     </div>
-    <p class="pitch">¿Tenés un emprendimiento? Tu propia tienda, que manejás vos, sin comisiones por venta. <a href="/#contact">Contame qué necesitás</a>.</p>
-    <p class="pitch" style="font-size:13px;margin-top:6px">Las capturas muestran productos de ejemplo.</p>
+    <p class="pitch" style="font-size:13px">Las capturas muestran productos de ejemplo.</p>
   </div>
 </main>
 
@@ -309,12 +308,12 @@ const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 // dos miradas
 const vistas = {
   compra: {
-    desk: "tienda.webp", cel: "cel-tienda.webp", url: "loba-bagues.vercel.app",
+    desk: "tienda.webp", cel: "cel-tienda.webp", url: "Tienda LOBA BAGUES",
     alt: "La tienda: productos en promoción con precio anterior tachado.",
     cap: "Quien compra ve las ofertas primero, con el precio anterior tachado, y puede sumar productos al carrito con un toque.",
   },
   duena: {
-    desk: "panel.webp", cel: "cel-panel.webp", url: "loba-bagues.vercel.app/admin",
+    desk: "panel.webp", cel: "cel-panel.webp", url: "Panel de gestión",
     alt: "El panel de gestión: resumen de productos, en promoción y sin stock, y el formulario para cargar o editar un producto.",
     cap: "La dueña ve cuántos productos tiene, cuántos están en oferta y cuáles se quedaron sin stock. Desde el celular puede editar precios, stock y fotos.",
   },
