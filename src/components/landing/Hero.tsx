@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ChevronDown, Play, Pause } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
-import LightHeroEffect from './LightHeroEffect';
-import { audioLevels } from './heroAudio';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -97,9 +95,7 @@ const Hero: React.FC = () => {
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    // Versión para modo claro: los mismos tonos, más intensos para que se vean sobre fondo claro
-    const lightColors = colors.map((c) => c * 0.75);
-    const colorAttr = new THREE.BufferAttribute(colors.slice(), 3);
+    const colorAttr = new THREE.BufferAttribute(colors, 3);
     geometry.setAttribute('color', colorAttr);
 
     const material = new THREE.PointsMaterial({
@@ -111,12 +107,87 @@ const Hero: React.FC = () => {
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // Fondo y partículas siguen el modo claro / oscuro
+    /* ---------- Modo claro: partículas mejoradas ----------
+     * La mitad de los puntos, redondos y más grandes, en tonos de tinta que se ven
+     * sobre el papel, unidos por líneas finas como una constelación.
+     * El modo oscuro sigue exactamente igual.
+     */
+    const tintas: [number, number, number][] = [
+      [0.42, 0.18, 0.38], // ciruela
+      [0.44, 0.38, 0.66], // lavanda
+      [0.16, 0.42, 0.46], // verde azulado
+      [0.66, 0.38, 0.47], // rosa viejo
+    ];
+    const claroCount = Math.floor(particleCount / 2);
+    const claroPos = new Float32Array(claroCount * 3);
+    const claroCol = new Float32Array(claroCount * 3);
+    for (let i = 0; i < claroCount; i += 1) {
+      const origen = i * 2; // uno de cada dos puntos, así se conserva la forma
+      claroPos.set(positions.subarray(origen * 3, origen * 3 + 3), i * 3);
+      const grupo = Math.floor((origen / particleCount) * 4);
+      const [r, g, b] = tintas[grupo];
+      const variacion = 0.85 + Math.random() * 0.3;
+      claroCol[i * 3] = Math.min(1, r * variacion);
+      claroCol[i * 3 + 1] = Math.min(1, g * variacion);
+      claroCol[i * 3 + 2] = Math.min(1, b * variacion);
+    }
+    const claroGeo = new THREE.BufferGeometry();
+    claroGeo.setAttribute('position', new THREE.BufferAttribute(claroPos, 3));
+    claroGeo.setAttribute('color', new THREE.BufferAttribute(claroCol, 3));
+
+    // Punto redondo con borde suave (en lugar del cuadradito)
+    const lienzo = document.createElement('canvas');
+    lienzo.width = lienzo.height = 64;
+    const ctx2d = lienzo.getContext('2d');
+    if (ctx2d) {
+      const grad = ctx2d.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.55, 'rgba(255,255,255,0.95)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx2d.fillStyle = grad;
+      ctx2d.fillRect(0, 0, 64, 64);
+    }
+    const puntoRedondo = new THREE.CanvasTexture(lienzo);
+    const claroMat = new THREE.PointsMaterial({
+      size: 0.7,
+      map: puntoRedondo,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.9,
+      depthWrite: false,
+    });
+
+    // Constelación: une puntos cercanos con líneas finas (como mucho 2 por punto)
+    const enlaces: number[] = [];
+    const usados = new Uint8Array(claroCount);
+    const DIST2 = 2.4 * 2.4;
+    for (let i = 0; i < claroCount; i += 1) {
+      if (usados[i] >= 2) continue;
+      for (let j = i + 1; j < claroCount && usados[i] < 2; j += 1) {
+        if (usados[j] >= 2) continue;
+        const dx = claroPos[i * 3] - claroPos[j * 3];
+        const dy = claroPos[i * 3 + 1] - claroPos[j * 3 + 1];
+        const dz = claroPos[i * 3 + 2] - claroPos[j * 3 + 2];
+        if (dx * dx + dy * dy + dz * dz < DIST2) {
+          enlaces.push(...claroPos.subarray(i * 3, i * 3 + 3), ...claroPos.subarray(j * 3, j * 3 + 3));
+          usados[i] += 1;
+          usados[j] += 1;
+        }
+      }
+    }
+    const lineasGeo = new THREE.BufferGeometry();
+    lineasGeo.setAttribute('position', new THREE.Float32BufferAttribute(enlaces, 3));
+    const lineasMat = new THREE.LineBasicMaterial({ color: 0x5b3a57, transparent: true, opacity: 0.22 });
+    const lineas = new THREE.LineSegments(lineasGeo, lineasMat);
+    particles.add(lineas); // gira junto con las partículas
+
+    // Cambia entre la versión oscura (original) y la clara
     const applyTheme = () => {
       const dark = document.documentElement.classList.contains('dark');
       renderer.setClearColor(dark ? 0x000000 : 0xf8f5ef, 1);
-      (colorAttr.array as Float32Array).set(dark ? colors : lightColors);
-      colorAttr.needsUpdate = true;
+      particles.geometry = dark ? geometry : claroGeo;
+      particles.material = dark ? material : claroMat;
+      lineas.visible = !dark;
     };
     applyTheme();
     const themeObserver = new MutationObserver(applyTheme);
@@ -215,14 +286,6 @@ const Hero: React.FC = () => {
         treble = getAverageVolume(dataArray, 300, 400) / 255;
       }
 
-      // Nivel de la música para los efectos del modo claro
-      audioLevels.bass = bass;
-      audioLevels.mid = mid;
-      audioLevels.treble = treble;
-
-      // En modo claro las partículas no se ven: no se dibujan (ahorra batería)
-      if (!document.documentElement.classList.contains('dark')) return;
-
       const baseRotationX = Math.sin(time * 0.3) * 0.003;
       const baseRotationY = Math.cos(time * 0.2) * 0.005;
       const extraRotationX = bass * 0.002 * Math.sin(time * 2);
@@ -293,6 +356,11 @@ const Hero: React.FC = () => {
       themeObserver.disconnect();
       geometry.dispose();
       material.dispose();
+      claroGeo.dispose();
+      claroMat.dispose();
+      puntoRedondo.dispose();
+      lineasGeo.dispose();
+      lineasMat.dispose();
       renderer.dispose();
     };
     });
@@ -345,9 +413,16 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
-      <div ref={containerRef} className="absolute inset-0 z-0 hidden dark:block" />
-      <LightHeroEffect />
+      <div ref={containerRef} className="absolute inset-0 z-0" />
       <div className="absolute inset-0 dark:bg-black/35" />
+      {/* Modo claro: velo suave detrás del texto para que las partículas no lo tapen */}
+      <div
+        className="pointer-events-none absolute inset-0 dark:hidden"
+        style={{
+          background:
+            'radial-gradient(ellipse 42% 30% at 50% 52%, rgba(248,245,239,0.95) 0%, rgba(248,245,239,0.7) 55%, rgba(248,245,239,0) 100%)',
+        }}
+      />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
