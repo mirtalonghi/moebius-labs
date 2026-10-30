@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ChevronDown, Play, Pause } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
+import LightHeroEffect from './LightHeroEffect';
+import { audioLevels } from './heroAudio';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -213,6 +215,14 @@ const Hero: React.FC = () => {
         treble = getAverageVolume(dataArray, 300, 400) / 255;
       }
 
+      // Nivel de la música para los efectos del modo claro
+      audioLevels.bass = bass;
+      audioLevels.mid = mid;
+      audioLevels.treble = treble;
+
+      // En modo claro las partículas no se ven: no se dibujan (ahorra batería)
+      if (!document.documentElement.classList.contains('dark')) return;
+
       const baseRotationX = Math.sin(time * 0.3) * 0.003;
       const baseRotationY = Math.cos(time * 0.2) * 0.005;
       const extraRotationX = bass * 0.002 * Math.sin(time * 2);
@@ -335,8 +345,9 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
-      <div ref={containerRef} className="absolute inset-0 z-0" />
-      <div className="absolute inset-0 bg-papel-100/30 dark:bg-black/35" />
+      <div ref={containerRef} className="absolute inset-0 z-0 hidden dark:block" />
+      <LightHeroEffect />
+      <div className="absolute inset-0 dark:bg-black/35" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
