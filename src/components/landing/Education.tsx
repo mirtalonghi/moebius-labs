@@ -5,10 +5,22 @@ import { GraduationCap, Calendar } from 'lucide-react';
 // Formación real (del CV). Del más nuevo al más antiguo.
 const education: { degree: string; school: string; period?: string; description: string }[] = [
   {
-    degree: "Cursos de desarrollo web e inteligencia artificial",
+    degree: "Creación de Páginas Web con V0",
     school: "Platzi",
     period: "2026",
-    description: "Creación de páginas web con V0, Introducción a la web (historia y funcionamiento de Internet) e Introducción a la inteligencia artificial."
+    description: "7 horas de teoría y práctica. Diseño y prototipado de sitios web con v0, la herramienta de inteligencia artificial de Vercel."
+  },
+  {
+    degree: "Introducción a la Web: Historia y Funcionamiento de Internet",
+    school: "Platzi",
+    period: "2026",
+    description: "12 horas. Cómo funciona Internet, la web y los navegadores."
+  },
+  {
+    degree: "Introducción a la Inteligencia Artificial",
+    school: "Platzi",
+    period: "2026",
+    description: "4 horas. Conceptos básicos de inteligencia artificial y sus aplicaciones."
   },
   {
     degree: "Developer Pack en Ethereum (Solidity)",
