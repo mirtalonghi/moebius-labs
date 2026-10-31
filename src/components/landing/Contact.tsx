@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Send, MessageCircle } from 'lucide-react';
+import { Mail, Github, Send, MessageCircle, CheckCircle2, Loader2 } from 'lucide-react';
 
 const EMAIL = "mirta.wolfsdorf@gmail.com";
 // Celular 011 4447 4421 en formato internacional para WhatsApp (54 9 11 ...)
@@ -31,13 +31,31 @@ const Contact: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [trampa, setTrampa] = useState(''); // campo invisible anti-spam
+  const [estado, setEstado] = useState<'listo' | 'enviando' | 'enviado' | 'error'>('listo');
+  const [error, setError] = useState('');
 
-  // Sin servidor: abre el programa de correo con el mensaje ya armado
-  const handleSubmit = (e: React.FormEvent) => {
+  // Envía el mensaje a la función /api/contacto, que lo manda por mail (Resend)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Consulta desde la web${name ? ` — ${name}` : ''}`;
-    const body = `${message}\n\n${name}${email ? `\n${email}` : ''}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setEstado('enviando');
+    setError('');
+    try {
+      const r = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: name, email, mensaje: message, sitio: trampa }),
+      });
+      const datos = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(datos.error || 'No se pudo enviar el mensaje.');
+      setEstado('enviado');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo enviar el mensaje.');
+      setEstado('error');
+    }
   };
 
   return (
@@ -105,6 +123,7 @@ const Contact: React.FC = () => {
               />
               <input
                 type="email"
+                required
                 aria-label="Tu email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -120,10 +139,41 @@ const Contact: React.FC = () => {
                 rows={4}
                 className="bg-papel-100 border border-papel-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
               ></textarea>
-              <button type="submit" className="flex items-center justify-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all active:scale-95">
-                <Send size={20} />
-                Enviar Mensaje
+              {/* Anti-spam: invisible para las personas, los robots lo completan */}
+              <input
+                type="text"
+                name="sitio"
+                tabIndex={-1}
+                autoComplete="off"
+                value={trampa}
+                onChange={(e) => setTrampa(e.target.value)}
+                className="absolute -left-[9999px] h-px w-px opacity-0"
+                aria-hidden="true"
+              />
+              <button
+                type="submit"
+                disabled={estado === 'enviando'}
+                className="flex items-center justify-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all active:scale-95 disabled:opacity-60 disabled:pointer-events-none"
+              >
+                {estado === 'enviando' ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+                {estado === 'enviando' ? 'Enviando…' : 'Enviar Mensaje'}
               </button>
+              <div aria-live="polite" className="min-h-6 text-sm">
+                {estado === 'enviado' && (
+                  <p className="flex items-center justify-center gap-2 text-emerald-700 dark:text-emerald-400">
+                    <CheckCircle2 size={18} /> ¡Gracias! Recibí tu mensaje y te respondo pronto.
+                  </p>
+                )}
+                {estado === 'error' && (
+                  <p className="text-red-700 dark:text-red-400">
+                    {error}{' '}O{' '}
+                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="underline font-semibold">
+                      escribime por WhatsApp
+                    </a>
+                    .
+                  </p>
+                )}
+              </div>
             </form>
           </div>
         </motion.div>
