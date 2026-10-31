@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from './components/landing/Hero';
+import Services from './components/landing/Services';
 import Portfolio from './components/landing/Portfolio';
 import Education from './components/landing/Education';
 import Contact from './components/landing/Contact';
@@ -20,6 +21,7 @@ function App() {
           }}
         >
           <Hero />
+          <Services />
           <Portfolio />
           <Education />
           <Contact />
