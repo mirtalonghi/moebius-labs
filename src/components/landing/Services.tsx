@@ -42,7 +42,7 @@ const Services: React.FC = () => {
         >
           <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Qué hago</h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg">
-            Soy Mirta Longhitano, desarrolladora web en Buenos Aires. Antes de programar trabajé muchos años
+            Soy Mirta Longhitano, desarrolladora web. Antes de programar trabajé muchos años
             en administración, así que entiendo cómo funciona un negocio por dentro y qué necesita de su web.
           </p>
         </motion.div>
