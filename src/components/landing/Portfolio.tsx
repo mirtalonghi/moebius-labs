@@ -15,6 +15,7 @@ type Project = {
   imagePosition?: string;
   tags: string[];
   github?: string;
+  hideBadge?: boolean; // oculta la etiqueta "Caso de estudio" sobre la imagen
 } & (
   | { type: 'link'; link: string }
   | { type: 'detail'; detailPage: string }
@@ -28,6 +29,7 @@ const projects: Project[] = [
     image: "/projects/faiwelwolfsdorf.webp",
     tags: ["React", "Vite", "Tailwind", "Framer Motion"],
     detailPage: "/proyectos/faiwel-wolfsdorf/",
+    hideBadge: true,
     github: "https://github.com/mirtalonghi/wolfsdorff"
   },
   {
@@ -38,6 +40,7 @@ const projects: Project[] = [
     imagePosition: "object-top",
     tags: ["Next.js", "TypeScript", "Tailwind", "Better Auth"],
     detailPage: "/proyectos/loba-bagues/",
+    hideBadge: true,
     github: "https://github.com/mirtalonghi/LOBABAGUES"
   },
   {
@@ -77,7 +80,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           decoding="async"
           className={`w-full h-full object-cover ${project.imagePosition ?? ''} group-hover:scale-110 transition-transform duration-500`}
         />
-        {isDetail && (
+        {isDetail && !project.hideBadge && (
           <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-400 text-slate-950">
             Caso de estudio
           </span>
