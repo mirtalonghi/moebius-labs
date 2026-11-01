@@ -1,43 +1,56 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Send, MessageCircle } from 'lucide-react';
+import { Mail, Github, Send, MessageCircle, Copy, Check } from 'lucide-react';
 
-const EMAIL = "mirta.wolfsdorf@gmail.com";
+/*
+ * Contacto directo, sin formulario: cada botón abre WhatsApp, Telegram o el mail
+ * con un mensaje ya empezado. El mail se muestra escrito y se puede copiar,
+ * porque en algunas computadoras "mailto:" no abre ningún programa.
+ */
+
+const EMAIL = 'mirta.wolfsdorf@gmail.com';
+const SALUDO = 'Hola Mirta, vi tu web y quiero consultarte por un proyecto.';
 // Celular 011 4447 4421 en formato internacional para WhatsApp (54 9 11 ...)
-const WHATSAPP = `https://wa.me/5491144474421?text=${encodeURIComponent("Hola Mirta, vi tu web y quiero consultarte por un proyecto.")}`;
+const WHATSAPP = `https://wa.me/5491144474421?text=${encodeURIComponent(SALUDO)}`;
+const TELEGRAM = 'https://t.me/wMoebius';
+const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent('Consulta desde la web · Moebius Labs')}&body=${encodeURIComponent(SALUDO + '\n\n')}`;
 
-const socialLinks = [
+const canales = [
   {
-    name: "WhatsApp",
-    icon: <MessageCircle size={24} />,
+    nombre: 'WhatsApp',
+    detalle: 'La forma más rápida',
+    icono: MessageCircle,
     url: WHATSAPP,
-    color: "hover:bg-green-600"
+    estilo: 'bg-green-600 hover:bg-green-500 text-white',
   },
   {
-    name: "GitHub",
-    icon: <Github size={24} />,
-    url: "https://github.com/mirtalonghi",
-    color: "hover:bg-slate-700"
+    nombre: 'Telegram',
+    detalle: '@wMoebius',
+    icono: Send,
+    url: TELEGRAM,
+    estilo: 'bg-sky-600 hover:bg-sky-500 text-white',
   },
   {
-    name: "Email",
-    icon: <Mail size={24} />,
-    url: `mailto:${EMAIL}`,
-    color: "hover:bg-red-500"
-  }
+    nombre: 'Email',
+    detalle: EMAIL,
+    icono: Mail,
+    url: MAILTO,
+    estilo:
+      'bg-slate-900 hover:bg-slate-700 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950',
+  },
 ];
 
 const Contact: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [copiado, setCopiado] = useState(false);
 
-  // Sin servidor: abre el programa de correo con el mensaje ya armado
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `Consulta desde la web${name ? ` — ${name}` : ''}`;
-    const body = `${message}\n\n${name}${email ? `\n${email}` : ''}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const copiarMail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
+    } catch {
+      /* si el navegador no deja copiar, el mail igual queda visible */
+    }
   };
 
   return (
@@ -47,86 +60,52 @@ const Contact: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12"
         >
           <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">¿Hablamos?</h2>
           <p className="text-slate-600 dark:text-slate-400">
-            Contame qué necesita tu negocio y te respondo con una propuesta.
+            Contame qué necesita tu negocio y te respondo con una propuesta. Elegí por dónde te queda más cómodo.
           </p>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-16">
-          {socialLinks.map((link, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          {canales.map((c, index) => (
             <motion.a
-              key={index}
-              href={link.url}
-              {...(link.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              aria-label={link.name}
-              whileHover={{ y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className={`p-4 bg-papel-100 text-slate-800 border-papel-200 hover:text-white dark:bg-slate-800 dark:text-white dark:border-slate-700 rounded-2xl border transition-all duration-300 ${link.color} group`}
-              title={link.name}
+              key={c.nombre}
+              href={c.url}
+              {...(c.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.97 }}
+              className={`flex flex-col items-center justify-center gap-2 min-h-touch px-6 py-6 rounded-2xl shadow-lg transition-colors ${c.estilo}`}
             >
-              {link.icon}
+              <c.icono size={28} />
+              <span className="text-lg font-bold">{c.nombre}</span>
+              <span className="text-sm opacity-80 break-all">{c.detalle}</span>
             </motion.a>
           ))}
         </div>
 
-        <motion.a
-          href={WHATSAPP}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center justify-center gap-3 min-h-touch mb-12 px-8 py-4 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-bold text-lg transition-colors"
-        >
-          <MessageCircle size={22} />
-          Escribime por WhatsApp
-        </motion.a>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 rounded-3xl"
-        >
-          <div className="bg-papel-100 dark:bg-slate-950 p-8 md:p-12 rounded-[calc(1.5rem-1px)]">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">O mandame un mail</h3>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-lg mx-auto">
-              <input
-                type="text"
-                required
-                aria-label="Tu nombre"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Tu Nombre"
-                className="bg-papel-100 border border-papel-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
-              />
-              <input
-                type="email"
-                aria-label="Tu email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Tu Email"
-                className="bg-papel-100 border border-papel-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors"
-              />
-              <textarea
-                required
-                aria-label="Tu mensaje"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Tu Mensaje"
-                rows={4}
-                className="bg-papel-100 border border-papel-200 text-slate-900 placeholder:text-slate-500 dark:placeholder:text-slate-500 dark:bg-slate-900 dark:border-slate-800 dark:text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500 transition-colors resize-none"
-              ></textarea>
-              <button type="submit" className="flex items-center justify-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all active:scale-95">
-                <Send size={20} />
-                Enviar Mensaje
-              </button>
-            </form>
-          </div>
-        </motion.div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-slate-600 dark:text-slate-400">
+          <button
+            onClick={copiarMail}
+            className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            {copiado ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
+            {copiado ? 'Mail copiado' : 'Copiar mi mail'}
+          </button>
+          <a
+            href="https://github.com/mirtalonghi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <Github size={16} /> Mi GitHub
+          </a>
+        </div>
       </div>
     </section>
   );
