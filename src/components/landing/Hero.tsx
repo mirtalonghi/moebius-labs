@@ -4,19 +4,10 @@ import { Download, ChevronDown, Play, Pause } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
 import HeroVideo from './HeroVideo';
 
-// DEMO: dos formas de mover las partículas con el dedo (o el mouse).
-//  - 'girar':    arrastrar rota la esfera; al soltar sigue un poco por inercia.
-//  - 'esquivar': las partículas se apartan del dedo y vuelven al soltar.
-type Efecto = 'girar' | 'esquivar';
-const efectoInicial = (): Efecto =>
-  new URLSearchParams(window.location.search).get('efecto') === 'esquivar' ? 'esquivar' : 'girar';
-
+// Partículas que esquivan el dedo (o el mouse): se apartan y vuelven al soltar.
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [efecto, setEfecto] = useState<Efecto>(efectoInicial);
-  const efectoRef = useRef<Efecto>(efecto);
-  efectoRef.current = efecto;
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioContextRef = useRef<any>(null);
   const isPlayingRef = useRef(false);
@@ -212,8 +203,6 @@ const Hero: React.FC = () => {
     // Los listeners son "passive": nunca bloquean el scroll, la página sigue bajando normal.
     const section = sectionRef.current;
     const dedo = { activo: false, x: 0, y: 0, ndcX: 10, ndcY: 10 };
-    let velX = 0; // velocidad de giro que deja el arrastre (inercia)
-    let velY = 0;
     const objetivo = new THREE.Vector2(10, 10);
     const esOscuro = () => document.documentElement.classList.contains('dark');
 
@@ -233,16 +222,10 @@ const Hero: React.FC = () => {
     };
     const mover = (cx: number, cy: number) => {
       if (!dedo.activo) return;
-      const dx = cx - dedo.x;
-      const dy = cy - dedo.y;
       dedo.x = cx;
       dedo.y = cy;
       aNdc(cx, cy);
       objetivo.set(dedo.ndcX, dedo.ndcY);
-      if (efectoRef.current === 'girar') {
-        velY = dx * 0.006;
-        velX = dy * 0.003; // en vertical gira menos: ese gesto es sobre todo para bajar
-      }
     };
     const soltar = () => {
       dedo.activo = false;
@@ -255,12 +238,9 @@ const Hero: React.FC = () => {
     };
     const onPointerMove = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return;
-      // Con mouse, "esquivar" sigue al cursor sin hacer click
-      if (efectoRef.current === 'esquivar' && !dedo.activo) empezar(e.clientX, e.clientY);
+      // Con mouse, el hueco sigue al cursor sin hacer click
+      if (!dedo.activo) empezar(e.clientX, e.clientY);
       mover(e.clientX, e.clientY);
-    };
-    const onPointerUp = (e: PointerEvent) => {
-      if (e.pointerType === 'mouse' && efectoRef.current === 'girar') soltar();
     };
     const pasivo = { passive: true } as const;
     section?.addEventListener('touchstart', onTouchStart, pasivo);
@@ -270,7 +250,6 @@ const Hero: React.FC = () => {
     section?.addEventListener('pointerdown', onPointerDown);
     section?.addEventListener('pointermove', onPointerMove);
     section?.addEventListener('pointerleave', soltar);
-    window.addEventListener('pointerup', onPointerUp);
 
     const getAverageVolume = (
       array: Uint8Array,
@@ -311,15 +290,11 @@ const Hero: React.FC = () => {
       const extraRotationX = bass * 0.002 * Math.sin(time * 2);
       const extraRotationY = mid * 0.004 * Math.cos(time);
 
-      particles.rotation.x += baseRotationX + extraRotationX + velX;
-      particles.rotation.y += baseRotationY + extraRotationY + velY;
-      // Inercia: después de soltar, el giro se va frenando solo
-      velX *= dedo.activo ? 0.6 : 0.95;
-      velY *= dedo.activo ? 0.6 : 0.95;
+      particles.rotation.x += baseRotationX + extraRotationX;
+      particles.rotation.y += baseRotationY + extraRotationY;
 
-      // Esquivar: el hueco sigue al dedo con suavidad y se cierra al soltar
-      const quiereEsquivar = efectoRef.current === 'esquivar' && dedo.activo;
-      uniforms.uFuerza.value += ((quiereEsquivar ? 1 : 0) - uniforms.uFuerza.value) * 0.08;
+      // El hueco sigue al dedo con suavidad y se cierra al soltar
+      uniforms.uFuerza.value += ((dedo.activo ? 1 : 0) - uniforms.uFuerza.value) * 0.08;
       uniforms.uPointer.value.lerp(objetivo, 0.25);
       particles.rotation.z = Math.sin(time * 0.1) * 0.05;
 
@@ -382,7 +357,6 @@ const Hero: React.FC = () => {
       section?.removeEventListener('pointerdown', onPointerDown);
       section?.removeEventListener('pointermove', onPointerMove);
       section?.removeEventListener('pointerleave', soltar);
-      window.removeEventListener('pointerup', onPointerUp);
       window.cancelAnimationFrame(animationFrameId);
       audio.pause();
       audio.removeEventListener('canplaythrough', handleCanPlay);
@@ -455,26 +429,6 @@ const Hero: React.FC = () => {
             'radial-gradient(ellipse 44% 32% at 50% 52%, rgba(248,245,239,0.75) 0%, rgba(248,245,239,0.35) 60%, rgba(248,245,239,0) 100%)',
         }}
       />
-
-      {/* DEMO: selector para probar los dos efectos (se saca cuando elijas uno) */}
-      <div className="absolute top-4 left-4 z-20 hidden dark:flex items-center gap-1 p-1 rounded-full bg-slate-900/80 border border-slate-700 backdrop-blur text-sm">
-        {(['girar', 'esquivar'] as Efecto[]).map((op) => (
-          <button
-            key={op}
-            onClick={() => {
-              setEfecto(op);
-              const url = new URL(window.location.href);
-              url.searchParams.set('efecto', op);
-              window.history.replaceState(null, '', url);
-            }}
-            className={`px-3 py-1.5 rounded-full font-medium transition-colors ${
-              efecto === op ? 'bg-white text-slate-950' : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            {op === 'girar' ? '1 · Girar' : '2 · Esquivar'}
-          </button>
-        ))}
-      </div>
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div
