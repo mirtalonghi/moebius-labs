@@ -30,6 +30,14 @@ const services = [
   },
 ];
 
+// Resumen de la formación (el detalle completo está en la sección Formación)
+const formacion = [
+  'Full Stack Python y Node.js · Codo a Codo',
+  'Front-End JavaScript · Talento Tech',
+  'Solidity / Ethereum · ETH-KIPU',
+  'Páginas web con IA (V0) · Platzi',
+];
+
 const Services: React.FC = () => {
   return (
     <section id="servicios" className="py-24 px-6 bg-papel-100 dark:bg-slate-950">
@@ -45,6 +53,26 @@ const Services: React.FC = () => {
             Soy Mirta Longhitano, desarrolladora web. Antes de programar trabajé muchos años
             en administración, así que entiendo cómo funciona un negocio por dentro y qué necesita de su web.
           </p>
+          <p className="text-slate-600 dark:text-slate-400 text-lg mt-4">
+            Me recibí de Analista en Computación Administrativa, cursé Análisis de Sistemas en la Facultad de Ingeniería
+            de la UBA y sigo formándome en desarrollo web.
+          </p>
+          <ul className="mt-6 flex flex-wrap justify-center gap-2" aria-label="Formación">
+            {formacion.map((f) => (
+              <li
+                key={f}
+                className="text-sm px-3 py-1.5 rounded-full bg-papel-50 border border-papel-200 text-slate-700 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300"
+              >
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#formacion"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 dark:text-amber-300 hover:gap-2.5 transition-all"
+          >
+            Ver toda mi formación <ArrowRight size={16} />
+          </a>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

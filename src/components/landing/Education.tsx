@@ -54,7 +54,7 @@ const education: { degree: string; school: string; period?: string; description:
 
 const Education: React.FC = () => {
   return (
-    <section className="py-24 px-6 bg-papel-100 dark:bg-slate-950">
+    <section id="formacion" className="py-24 px-6 bg-papel-100 dark:bg-slate-950 scroll-mt-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
