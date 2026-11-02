@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, ChevronDown, Play, Pause } from 'lucide-react';
+import { Download, ChevronDown, Play, Pause, MessageCircle, ArrowDown } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
 import HeroVideo from './HeroVideo';
 
 // Partículas que esquivan el dedo (o el mouse): se apartan y vuelven al soltar.
+const PRESUPUESTO = `https://wa.me/5491144474421?text=${encodeURIComponent('Hola Mirta, vi tu web y quiero pedirte un presupuesto.')}`;
+
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -443,36 +445,57 @@ const Hero: React.FC = () => {
             className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-slate-900/5 border border-slate-900/10 dark:bg-white/5 dark:border-white/10 rounded-full"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">Disponible para trabajar</span>
+            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">Disponible para nuevos proyectos</span>
           </motion.div>
 
           <h1 className="font-display text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white mb-4 tracking-tighter">
             Moebius Labs
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 font-light tracking-tight">
-            Estudio profesional de diseño y desarrollo web
+          <p className="text-lg md:text-2xl text-slate-700 dark:text-slate-300 mb-3 font-light tracking-tight max-w-2xl mx-auto">
+            Sitios y tiendas online a medida para emprendimientos, artistas y pymes.
+          </p>
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 mb-8 tracking-tight">
+            Trabajás directo conmigo, sin intermediarios.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <motion.button
+            <motion.a
+              href={PRESUPUESTO}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={handleDownload}
-              className="flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
             >
-              <Download size={20} />
-              Descargar CV
-            </motion.button>
-
-            <motion.button
+              <MessageCircle size={20} />
+              Pedí tu presupuesto
+            </motion.a>
+            <motion.a
+              href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={togglePlay}
               className="flex items-center gap-2 bg-papel-100/70 text-slate-900 border border-papel-300 hover:bg-papel-200/60 dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
-              {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-              {isPlaying ? 'Pausar música' : 'Reproducir música'}
-            </motion.button>
+              <ArrowDown size={20} />
+              Ver proyectos
+            </motion.a>
+          </div>
+
+          {/* Secundario: el CV (para quien busca contratar) y la música que mueve las partículas */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <button
+              onClick={handleDownload}
+              className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
+            >
+              <Download size={16} /> Descargar CV
+            </button>
+            <button
+              onClick={togglePlay}
+              className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
+            >
+              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+              {isPlaying ? 'Pausar música' : 'Música'}
+            </button>
           </div>
 
           {errorMessage && (
