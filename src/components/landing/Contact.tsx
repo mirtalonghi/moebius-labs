@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Send, MessageCircle, Copy, Check } from 'lucide-react';
+import { useLang, whatsapp } from '../../i18n';
 
 /*
  * Contacto directo, sin formulario: cada botón abre WhatsApp, Telegram o el mail
@@ -9,18 +10,21 @@ import { Mail, Github, Send, MessageCircle, Copy, Check } from 'lucide-react';
  */
 
 const EMAIL = 'mirta.wolfsdorf@gmail.com';
-const SALUDO = 'Hola Mirta, vi tu web y quiero consultarte por un proyecto.';
-// Celular 011 4447 4421 en formato internacional para WhatsApp (54 9 11 ...)
-const WHATSAPP = `https://wa.me/5491144474421?text=${encodeURIComponent(SALUDO)}`;
 const TELEGRAM = 'https://t.me/wMoebius';
-const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent('Consulta desde la web · Moebius Labs')}&body=${encodeURIComponent(SALUDO + '\n\n')}`;
 
-const canales = [
+const Contact: React.FC = () => {
+  const { t } = useLang();
+  const [copiado, setCopiado] = useState(false);
+
+  const SALUDO = t('Hola Mirta, vi tu web y quiero consultarte por un proyecto.', "Hi Mirta, I saw your website and I'd like to ask you about a project.");
+  const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(t('Consulta desde la web · Moebius Labs', 'Inquiry from the website · Moebius Labs'))}&body=${encodeURIComponent(SALUDO + '\n\n')}`;
+
+  const canales = [
   {
     nombre: 'WhatsApp',
-    detalle: 'La forma más rápida',
+    detalle: t('La forma más rápida', 'The fastest way'),
     icono: MessageCircle,
-    url: WHATSAPP,
+    url: whatsapp(SALUDO),
     estilo: 'bg-green-600 hover:bg-green-500 text-white',
   },
   {
@@ -39,9 +43,6 @@ const canales = [
       'bg-slate-900 hover:bg-slate-700 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950',
   },
 ];
-
-const Contact: React.FC = () => {
-  const [copiado, setCopiado] = useState(false);
 
   const copiarMail = async () => {
     try {
@@ -62,9 +63,12 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">¿Hablamos?</h2>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">{t('¿Hablamos?', "Let's talk")}</h2>
           <p className="text-slate-600 dark:text-slate-400">
-            Contame qué necesita tu negocio y te respondo con una propuesta. Elegí por dónde te queda más cómodo.
+            {t(
+              'Contame qué necesita tu negocio y te respondo con una propuesta. Elegí por dónde te queda más cómodo.',
+              "Tell me what your business needs and I'll reply with a proposal. Pick whichever channel suits you best."
+            )}
           </p>
         </motion.div>
 
@@ -95,7 +99,7 @@ const Contact: React.FC = () => {
             className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             {copiado ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
-            {copiado ? 'Mail copiado' : 'Copiar mi mail'}
+            {copiado ? t('Mail copiado', 'Email copied') : t('Copiar mi mail', 'Copy my email')}
           </button>
           <a
             href="https://github.com/mirtalonghi"
@@ -103,7 +107,7 @@ const Contact: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
           >
-            <Github size={16} /> Mi GitHub
+            <Github size={16} /> {t('Mi GitHub', 'My GitHub')}
           </a>
         </div>
       </div>

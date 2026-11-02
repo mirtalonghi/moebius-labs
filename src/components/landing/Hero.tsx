@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { Download, ChevronDown, Play, Pause, MessageCircle, ArrowDown } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
 import HeroVideo from './HeroVideo';
+import { useLang, whatsapp } from '../../i18n';
 
 // Partículas que esquivan el dedo (o el mouse): se apartan y vuelven al soltar.
-const PRESUPUESTO = `https://wa.me/5491144474421?text=${encodeURIComponent('Hola Mirta, vi tu web y quiero pedirte un presupuesto.')}`;
-
 const Hero: React.FC = () => {
+  const { t } = useLang();
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -445,22 +445,22 @@ const Hero: React.FC = () => {
             className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-slate-900/5 border border-slate-900/10 dark:bg-white/5 dark:border-white/10 rounded-full"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">Disponible para nuevos proyectos</span>
+            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">{t('Disponible para nuevos proyectos', 'Available for new projects')}</span>
           </motion.div>
 
           <h1 className="font-display text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white mb-4 tracking-tighter">
             Moebius Labs
           </h1>
           <p className="text-lg md:text-2xl text-slate-700 dark:text-slate-300 mb-3 font-light tracking-tight max-w-2xl mx-auto">
-            Sitios y tiendas online a medida para emprendimientos, artistas y pymes.
+            {t('Sitios y tiendas online a medida para emprendimientos, artistas y pymes.', 'Custom websites and online stores for entrepreneurs, artists and small businesses.')}
           </p>
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 mb-8 tracking-tight">
-            Trabajás directo conmigo, sin intermediarios.
+            {t('Trabajás directo conmigo, sin intermediarios.', 'You work directly with me, no middlemen.')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.a
-              href={PRESUPUESTO}
+              href={whatsapp(t('Hola Mirta, vi tu web y quiero pedirte un presupuesto.', "Hi Mirta, I saw your website and I'd like to get a quote."))}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -468,7 +468,7 @@ const Hero: React.FC = () => {
               className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
             >
               <MessageCircle size={20} />
-              Pedí tu presupuesto
+              {t('Pedí tu presupuesto', 'Get a quote')}
             </motion.a>
             <motion.a
               href="#portfolio"
@@ -477,7 +477,7 @@ const Hero: React.FC = () => {
               className="flex items-center gap-2 bg-papel-100/70 text-slate-900 border border-papel-300 hover:bg-papel-200/60 dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
               <ArrowDown size={20} />
-              Ver proyectos
+              {t('Ver proyectos', 'See projects')}
             </motion.a>
           </div>
 
@@ -487,14 +487,14 @@ const Hero: React.FC = () => {
               onClick={handleDownload}
               className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
             >
-              <Download size={16} /> Descargar CV
+              <Download size={16} /> {t('Descargar CV', 'Download CV')}
             </button>
             <button
               onClick={togglePlay}
               className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
             >
               {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-              {isPlaying ? 'Pausar música' : 'Música'}
+              {isPlaying ? t('Pausar música', 'Pause music') : t('Música', 'Music')}
             </button>
           </div>
 

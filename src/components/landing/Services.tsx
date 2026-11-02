@@ -1,44 +1,46 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Palette, ShoppingBag, RefreshCw, ArrowRight, MessageCircle } from 'lucide-react';
+import { Palette, ShoppingBag, RefreshCw, ArrowRight, MessageCircle, Clock } from 'lucide-react';
+import { useLang, whatsapp } from '../../i18n';
 
 /*
- * "Qué hago": quién soy en dos líneas y los tres servicios,
+ * "Qué hago": quién soy, el precio de referencia y los tres servicios,
  * cada uno con el caso real que lo muestra.
  */
 
-const WHATSAPP = `https://wa.me/5491144474421?text=${encodeURIComponent("Hola Mirta, vi tu web y quiero consultarte por un proyecto.")}`;
-
-const services = [
-  {
-    icon: Palette,
-    title: 'Sitios a medida',
-    text: 'Para artistas, profesionales y marcas que quieren mostrar su trabajo con una web propia, rápida y que se vea bien en el celular.',
-    example: { label: 'Ver el sitio de Faiwel Wolfsdorf', href: '/proyectos/faiwel-wolfsdorf/' },
-  },
-  {
-    icon: ShoppingBag,
-    title: 'Tiendas online',
-    text: 'Catálogo, carrito y un panel simple para que cargues tus productos, precios y fotos sin depender de nadie.',
-    example: { label: 'Ver la tienda de LOBA BAGUES', href: '/proyectos/loba-bagues/' },
-  },
-  {
-    icon: RefreshCw,
-    title: 'Rediseño de webs',
-    text: 'Si tu sitio quedó viejo, es lento o no se ve en el celular, lo renuevo manteniendo tu contenido y tu identidad.',
-    example: { label: 'Ver el antes y después', href: '/proyectos/faiwel-wolfsdorf/' },
-  },
-];
-
-// Resumen de la formación (el detalle completo está en la sección Formación)
-const formacion = [
-  'Full Stack Python y Node.js · Codo a Codo',
-  'Front-End JavaScript · Talento Tech',
-  'Solidity / Ethereum · ETH-KIPU',
-  'Páginas web con IA (V0) · Platzi',
-];
-
 const Services: React.FC = () => {
+  const { t } = useLang();
+
+  const services = [
+    {
+      icon: Palette,
+      title: t('Sitios a medida', 'Custom websites'),
+      text: t(
+        'Para artistas, profesionales y marcas que quieren mostrar su trabajo con una web propia, rápida y que se vea bien en el celular.',
+        'For artists, professionals and brands who want to show their work with a site of their own: fast, and great on mobile.'
+      ),
+      example: { label: t('Ver el sitio de Faiwel Wolfsdorf', 'See the Faiwel Wolfsdorf site'), href: '/proyectos/faiwel-wolfsdorf/' },
+    },
+    {
+      icon: ShoppingBag,
+      title: t('Tiendas online', 'Online stores'),
+      text: t(
+        'Catálogo, carrito y un panel simple para que cargues tus productos, precios y fotos sin depender de nadie.',
+        'Catalog, cart and a simple admin panel so you can manage your products, prices and photos on your own.'
+      ),
+      example: { label: t('Ver la tienda de LOBA BAGUES', 'See the LOBA BAGUES store'), href: '/proyectos/loba-bagues/' },
+    },
+    {
+      icon: RefreshCw,
+      title: t('Rediseño de webs', 'Website redesign'),
+      text: t(
+        'Si tu sitio quedó viejo, es lento o no se ve en el celular, lo renuevo manteniendo tu contenido y tu identidad.',
+        'If your site looks dated, is slow or breaks on mobile, I rebuild it while keeping your content and your identity.'
+      ),
+      example: { label: t('Ver el antes y después', 'See the before and after'), href: '/proyectos/faiwel-wolfsdorf/' },
+    },
+  ];
+
   return (
     <section id="servicios" className="py-24 px-6 bg-papel-100 dark:bg-slate-950">
       <div className="max-w-6xl mx-auto">
@@ -46,39 +48,53 @@ const Services: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-12"
         >
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Qué hago</h2>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">{t('Qué hago', 'What I do')}</h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg">
-            Soy Mirta Longhitano, desarrolladora web. Antes de programar trabajé muchos años
-            en administración, así que entiendo cómo funciona un negocio por dentro y qué necesita de su web.
+            {t(
+              'Soy Mirta Longhitano, desarrolladora web. Antes de programar trabajé muchos años en administración, así que entiendo cómo funciona un negocio por dentro y qué necesita de su web.',
+              "I'm Mirta Longhitano, a web developer. Before coding I spent many years in business administration, so I understand how a business works from the inside and what it needs from its website."
+            )}
           </p>
           <p className="text-slate-600 dark:text-slate-400 text-lg mt-4">
-            Me recibí de Analista en Computación Administrativa, cursé Análisis de Sistemas en la Facultad de Ingeniería
-            de la UBA y sigo formándome en desarrollo web.
+            {t(
+              'Me recibí de Analista en Computación Administrativa, cursé Análisis de Sistemas en la Facultad de Ingeniería de la UBA y sigo formándome en desarrollo web.',
+              'I hold a degree in Business Computing, studied Systems Analysis at the University of Buenos Aires School of Engineering, and keep training in web development.'
+            )}
           </p>
-          <ul className="mt-6 flex flex-wrap justify-center gap-2" aria-label="Formación">
-            {formacion.map((f) => (
-              <li
-                key={f}
-                className="text-sm px-3 py-1.5 rounded-full bg-papel-50 border border-papel-200 text-slate-700 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300"
-              >
-                {f}
-              </li>
-            ))}
-          </ul>
           <a
             href="#formacion"
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 dark:text-amber-300 hover:gap-2.5 transition-all"
           >
-            Ver toda mi formación <ArrowRight size={16} />
+            {t('Ver toda mi formación', 'See my full education')} <ArrowRight size={16} />
           </a>
+        </motion.div>
+
+        {/* Precio de referencia */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto mb-14 p-6 md:p-8 rounded-2xl text-center bg-amber-50 border border-amber-300/70 dark:bg-amber-400/10 dark:border-amber-400/30"
+        >
+          <p className="text-sm font-semibold uppercase tracking-widest text-amber-800 dark:text-amber-300 mb-2">
+            {t('Precio', 'Pricing')}
+          </p>
+          <p className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            {t('Desde U$S 100', 'From US$100')}
+          </p>
+          <p className="mt-1 text-slate-700 dark:text-slate-300">{t('Pago único', 'One-time payment')}</p>
+          <p className="mt-4 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium">
+            <Clock size={18} className="text-amber-700 dark:text-amber-300" />
+            {t('Tené tu sitio en una semana', 'Get your site in one week')}
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((s, index) => (
             <motion.div
-              key={s.title}
+              key={s.example.href + index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -106,14 +122,16 @@ const Services: React.FC = () => {
           viewport={{ once: true }}
           className="mt-14 text-center"
         >
-          <p className="text-slate-600 dark:text-slate-400 mb-4">¿Tenés un proyecto en mente? Contame y te digo cómo lo haría.</p>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">
+            {t('¿Tenés un proyecto en mente? Contame y te digo cómo lo haría.', "Have a project in mind? Tell me about it and I'll tell you how I'd build it.")}
+          </p>
           <a
-            href={WHATSAPP}
+            href={whatsapp(t('Hola Mirta, vi tu web y quiero consultarte por un proyecto.', "Hi Mirta, I saw your website and I'd like to ask you about a project."))}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 transition-colors"
           >
-            <MessageCircle size={18} /> Escribime por WhatsApp
+            <MessageCircle size={18} /> {t('Escribime por WhatsApp', 'Message me on WhatsApp')}
           </a>
         </motion.div>
       </div>
