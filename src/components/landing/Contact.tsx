@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Send, MessageCircle, Copy, Check } from 'lucide-react';
+import { Github, Send, MessageCircle } from 'lucide-react';
 import { useLang, whatsapp } from '../../i18n';
 
 /*
- * Contacto directo, sin formulario: cada botón abre WhatsApp, Telegram o el mail
- * con un mensaje ya empezado. El mail se muestra escrito y se puede copiar,
- * porque en algunas computadoras "mailto:" no abre ningún programa.
+ * Contacto directo, sin formulario: WhatsApp (con un mensaje ya empezado) y Telegram.
+ * El mail se agrega cuando haya dominio propio (contacto@...).
  */
 
-const EMAIL = 'mirta.wolfsdorf@gmail.com';
 const TELEGRAM = 'https://t.me/wMoebius';
 
 const Contact: React.FC = () => {
   const { t } = useLang();
-  const [copiado, setCopiado] = useState(false);
 
   const SALUDO = t('Hola Mirta, vi tu web y quiero consultarte por un proyecto.', "Hi Mirta, I saw your website and I'd like to ask you about a project.");
-  const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(t('Consulta desde la web · Moebius Labs', 'Inquiry from the website · Moebius Labs'))}&body=${encodeURIComponent(SALUDO + '\n\n')}`;
 
   const canales = [
   {
@@ -34,25 +30,7 @@ const Contact: React.FC = () => {
     url: TELEGRAM,
     estilo: 'bg-sky-600 hover:bg-sky-500 text-white',
   },
-  {
-    nombre: 'Email',
-    detalle: EMAIL,
-    icono: Mail,
-    url: MAILTO,
-    estilo:
-      'bg-slate-900 hover:bg-slate-700 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950',
-  },
 ];
-
-  const copiarMail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopiado(true);
-      setTimeout(() => setCopiado(false), 2000);
-    } catch {
-      /* si el navegador no deja copiar, el mail igual queda visible */
-    }
-  };
 
   return (
     <section id="contact" className="py-24 px-6 bg-papel-100 dark:bg-slate-900">
@@ -72,7 +50,7 @@ const Contact: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
           {canales.map((c, index) => (
             <motion.a
               key={c.nombre}
@@ -94,13 +72,6 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-slate-600 dark:text-slate-400">
-          <button
-            onClick={copiarMail}
-            className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            {copiado ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
-            {copiado ? t('Mail copiado', 'Email copied') : t('Copiar mi mail', 'Copy my email')}
-          </button>
           <a
             href="https://github.com/mirtalonghi"
             target="_blank"
