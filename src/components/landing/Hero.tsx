@@ -515,9 +515,11 @@ const Hero: React.FC = () => {
         <span className="text-slate-800 dark:text-white text-sm font-semibold uppercase tracking-[0.25em] drop-shadow">
           Scroll
         </span>
-        <span className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-slate-800/70 bg-papel-100/70 text-slate-900 shadow-lg backdrop-blur-sm transition-colors group-hover:bg-slate-900 group-hover:text-white dark:border-white/70 dark:bg-white/10 dark:text-white dark:group-hover:bg-white dark:group-hover:text-slate-950">
-          <ChevronDown size={28} strokeWidth={2.5} />
-        </span>
+        <ChevronDown
+          size={36}
+          strokeWidth={2.75}
+          className="text-slate-900 dark:text-white drop-shadow transition-transform group-hover:translate-y-1"
+        />
       </motion.a>
     </section>
   );
