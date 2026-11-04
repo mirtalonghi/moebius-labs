@@ -510,7 +510,7 @@ const Hero: React.FC = () => {
         aria-label={t('Bajar a Qué hago', 'Scroll to What I do')}
         animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-8 z-10 flex flex-col items-center gap-2 group"
+        className="absolute bottom-16 z-10 flex flex-col items-center gap-2 group [@media(max-height:720px)]:bottom-4"
       >
         <span className="text-slate-800 dark:text-white text-sm font-semibold uppercase tracking-[0.25em] drop-shadow">
           Scroll
