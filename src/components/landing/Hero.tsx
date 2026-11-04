@@ -504,14 +504,21 @@ const Hero: React.FC = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 15, 0] }}
+      {/* Indicador para bajar: también es un link a "Qué hago" */}
+      <motion.a
+        href="#servicios"
+        aria-label={t('Bajar a Qué hago', 'Scroll to What I do')}
+        animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-10 flex flex-col items-center gap-2"
+        className="absolute bottom-8 z-10 flex flex-col items-center gap-2 group"
       >
-        <span className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={28} className="text-slate-500 dark:text-slate-400" />
-      </motion.div>
+        <span className="text-slate-800 dark:text-white text-sm font-semibold uppercase tracking-[0.25em] drop-shadow">
+          Scroll
+        </span>
+        <span className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-slate-800/70 bg-papel-100/70 text-slate-900 shadow-lg backdrop-blur-sm transition-colors group-hover:bg-slate-900 group-hover:text-white dark:border-white/70 dark:bg-white/10 dark:text-white dark:group-hover:bg-white dark:group-hover:text-slate-950">
+          <ChevronDown size={28} strokeWidth={2.5} />
+        </span>
+      </motion.a>
     </section>
   );
 };
