@@ -440,8 +440,12 @@ const Hero: React.FC = () => {
             <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">{t('Disponible para nuevos proyectos', 'Available for new projects')}</span>
           </motion.div>
 
-          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl leading-[1.05] font-semibold text-slate-900 dark:text-white mb-5 tracking-tighter max-w-3xl mx-auto">
-            {t('Diseño web a medida para tu negocio', 'Custom web design for your business')}
+          <h1 className="font-display text-5xl sm:text-6xl md:text-[5.25rem] xl:text-8xl leading-[1.05] font-semibold text-slate-900 dark:text-white mb-5 tracking-tighter max-w-4xl mx-auto">
+            {t('Diseño web a medida que potencia tu ', 'Custom web design that grows your ')}
+            {/* La palabra clave en el mismo verde del botón, en degradé */}
+            <span className="bg-gradient-to-r from-green-700 via-green-600 to-emerald-500 dark:from-green-500 dark:via-green-400 dark:to-emerald-300 bg-clip-text text-transparent pb-[0.08em] pr-[0.04em]">
+              {t('negocio', 'business')}
+            </span>
           </h1>
           <p className="text-lg md:text-2xl text-slate-700 dark:text-slate-300 mb-3 font-light tracking-tight max-w-2xl mx-auto">
             {t('Sitios y tiendas online para emprendimientos, artistas y pymes.', 'Websites and online stores for entrepreneurs, artists and small businesses.')}
@@ -502,7 +506,7 @@ const Hero: React.FC = () => {
         aria-label={t('Bajar a Qué hago', 'Scroll to What I do')}
         animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-16 z-10 flex flex-col items-center gap-2 group [@media(max-height:720px)]:bottom-4"
+        className="absolute bottom-16 z-10 flex flex-col items-center gap-2 group md:[@media(max-height:900px)]:bottom-5 [@media(max-height:720px)]:hidden"
       >
         <span className="text-slate-800 dark:text-white text-sm font-semibold uppercase tracking-[0.25em] drop-shadow">
           Scroll
