@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar } from 'lucide-react';
+import { GraduationCap, Calendar, Download } from 'lucide-react';
 import { useLang } from '../../i18n';
 
 // Formación real (del CV). Del más nuevo al más antiguo.
@@ -105,6 +105,16 @@ const Education: React.FC = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <a
+            href="/CV_Mirta_Longhitano.pdf"
+            download="CV_Mirta_Longhitano.pdf"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold border border-papel-300 bg-papel-50 text-slate-900 hover:bg-papel-200 dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:hover:bg-slate-800 transition-colors"
+          >
+            <Download size={18} /> {t('Descargar CV', 'Download CV')}
+          </a>
         </div>
       </div>
     </section>

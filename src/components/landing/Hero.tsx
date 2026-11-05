@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, ChevronDown, Play, Pause, MessageCircle, ArrowDown } from 'lucide-react';
+import { ChevronDown, Pause, MessageCircle, ArrowDown, Music } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
 import HeroVideo from './HeroVideo';
 import { useLang, whatsapp } from '../../i18n';
@@ -378,14 +378,6 @@ const Hero: React.FC = () => {
     };
   }, [audioUrl]);
 
-  const handleDownload = () => {
-    hapticFeedback('medium');
-    const link = document.createElement('a');
-    link.href = '/CV_Mirta_Longhitano.pdf';
-    link.download = 'CV_Mirta_Longhitano.pdf';
-    link.click();
-  };
-
   const togglePlay = async () => {
     try {
       await hapticFeedback('medium');
@@ -419,7 +411,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
+    <section id="inicio" ref={sectionRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
       <div ref={containerRef} className="absolute inset-0 z-0 hidden dark:block" />
       <HeroVideo />
       <div className="absolute inset-0 dark:bg-black/35" />
@@ -448,11 +440,11 @@ const Hero: React.FC = () => {
             <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">{t('Disponible para nuevos proyectos', 'Available for new projects')}</span>
           </motion.div>
 
-          <h1 className="font-display text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white mb-4 tracking-tighter">
-            Moebius Labs
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl leading-[1.05] font-semibold text-slate-900 dark:text-white mb-5 tracking-tighter max-w-3xl mx-auto">
+            {t('Diseño web a medida para tu negocio', 'Custom web design for your business')}
           </h1>
           <p className="text-lg md:text-2xl text-slate-700 dark:text-slate-300 mb-3 font-light tracking-tight max-w-2xl mx-auto">
-            {t('Sitios y tiendas online a medida para emprendimientos, artistas y pymes.', 'Custom websites and online stores for entrepreneurs, artists and small businesses.')}
+            {t('Sitios y tiendas online para emprendimientos, artistas y pymes.', 'Websites and online stores for entrepreneurs, artists and small businesses.')}
           </p>
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 mb-8 tracking-tight">
             {t('Trabajás directo conmigo, sin intermediarios.', 'You work directly with me, no middlemen.')}
@@ -481,28 +473,28 @@ const Hero: React.FC = () => {
             </motion.a>
           </div>
 
-          {/* Secundario: el CV (para quien busca contratar) y la música que mueve las partículas */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-600 dark:text-slate-400">
-            <button
-              onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
-            >
-              <Download size={16} /> {t('Descargar CV', 'Download CV')}
-            </button>
-            <button
-              onClick={togglePlay}
-              className="inline-flex items-center gap-1.5 min-h-touch hover:text-slate-900 dark:hover:text-white transition-colors"
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-              {isPlaying ? t('Pausar música', 'Pause music') : t('Música', 'Music')}
-            </button>
-          </div>
-
           {errorMessage && (
             <p className="mt-4 text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
           )}
         </motion.div>
       </div>
+
+      {/* Música: botón flotante abajo a la izquierda (mueve las partículas al ritmo) */}
+      <button
+        type="button"
+        onClick={togglePlay}
+        aria-label={isPlaying ? t('Pausar música', 'Pause music') : t('Reproducir música', 'Play music')}
+        title={isPlaying ? t('Pausar música', 'Pause music') : t('Música', 'Music')}
+        className={`fixed z-40 w-12 h-12 inline-flex items-center justify-center rounded-full border backdrop-blur-md shadow-lg transition-colors bg-papel-100/90 text-slate-800 border-papel-200 hover:bg-papel-200 dark:bg-slate-900/70 dark:text-white dark:border-white/10 dark:hover:bg-slate-800 ${
+          isPlaying ? 'ring-2 ring-green-500/70' : ''
+        }`}
+        style={{
+          bottom: 'calc(env(safe-area-inset-bottom) + 16px)',
+          left: 'calc(env(safe-area-inset-left) + 16px)',
+        }}
+      >
+        {isPlaying ? <Pause size={20} /> : <Music size={20} />}
+      </button>
 
       {/* Indicador para bajar: también es un link a "Qué hago" */}
       <motion.a

@@ -4,8 +4,7 @@ import Services from './components/landing/Services';
 import Portfolio from './components/landing/Portfolio';
 import Education from './components/landing/Education';
 import Contact from './components/landing/Contact';
-import ThemeToggle from './components/landing/ThemeToggle';
-import LangToggle from './components/landing/LangToggle';
+import Header from './components/landing/Header';
 import { LangProvider, useLang } from './i18n';
 
 function Pie() {
@@ -22,8 +21,7 @@ function App() {
     <LangProvider>
     <div className="w-full min-h-screen bg-papel-100 text-slate-800 dark:bg-slate-950 dark:text-slate-200 selection:bg-blue-500/30">
       {/* Main content container */}
-      <ThemeToggle />
-      <LangToggle />
+      <Header />
       <main className="w-full relative">
         {/* Safe area padding for mobile devices */}
         <div
