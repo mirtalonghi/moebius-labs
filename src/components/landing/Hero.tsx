@@ -443,7 +443,7 @@ const Hero: React.FC = () => {
           <h1 className="font-display text-[clamp(2rem,9.6vw,3rem)] sm:text-6xl lg:text-[5.25rem] xl:text-8xl leading-[1.05] font-semibold text-slate-900 dark:text-white mb-5 tracking-tighter max-w-4xl mx-auto">
             {t('Diseño web a medida que potencia tu ', 'Custom web design that grows your ')}
             {/* La palabra clave en el mismo verde del botón, en degradé */}
-            <span className="bg-gradient-to-r from-green-700 via-green-600 to-emerald-500 dark:from-green-500 dark:via-green-400 dark:to-emerald-300 bg-clip-text text-transparent pb-[0.08em] pr-[0.04em]">
+            <span className="bg-gradient-to-r from-green-800 via-green-600 to-emerald-400 dark:from-green-600 dark:via-emerald-400 dark:to-teal-200 bg-clip-text text-transparent pb-[0.08em] pr-[0.04em]">
               {t('negocio', 'business')}
             </span>
           </h1>
