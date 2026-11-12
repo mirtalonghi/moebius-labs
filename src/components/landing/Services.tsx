@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Palette, ShoppingBag, RefreshCw, ArrowRight, MessageCircle, Clock } from 'lucide-react';
+import { Palette, ShoppingBag, RefreshCw, ArrowRight, MessageCircle, Clock, Sparkles } from 'lucide-react';
 import { useLang, whatsapp } from '../../i18n';
 
 /*
- * "Qué hago": quién soy, el precio de referencia y los tres servicios,
- * cada uno con el caso real que lo muestra.
+ * "Qué hago": quién soy, el precio de referencia y los cuatro servicios,
+ * cada uno con el caso real que lo muestra (el de IA abre el asistente de la propia página).
  */
 
 const Services: React.FC = () => {
@@ -38,6 +38,16 @@ const Services: React.FC = () => {
         'If your site looks dated, is slow or breaks on mobile, I rebuild it while keeping your content and your identity.'
       ),
       example: { label: t('Ver el antes y después', 'See the before and after'), href: '/proyectos/faiwel-wolfsdorf/' },
+    },
+    {
+      icon: Sparkles,
+      title: t('Webs con IA', 'AI-powered websites'),
+      text: t(
+        'Un asistente que responde las consultas de tus clientes con los datos de tu negocio, descripciones de productos automáticas o tu web traducida a otros idiomas.',
+        "An assistant that answers your customers' questions using your business data, automatic product descriptions, or your site translated into other languages."
+      ),
+      example: { label: t('Probá mi asistente', 'Try my assistant'), href: '#asistente' },
+      ia: true,
     },
   ];
 
@@ -92,7 +102,7 @@ const Services: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           {services.map((s, index) => (
             <motion.div
               key={s.example.href + index}
@@ -102,17 +112,31 @@ const Services: React.FC = () => {
               transition={{ delay: index * 0.1 }}
               className="flex flex-col p-8 rounded-2xl bg-papel-50 dark:bg-slate-900 border border-papel-200 dark:border-slate-800"
             >
-              <div className="w-12 h-12 mb-6 rounded-xl flex items-center justify-center bg-blue-500/10 text-blue-700 dark:text-blue-400">
+              <div
+                className={`w-12 h-12 mb-6 rounded-xl flex items-center justify-center ${
+                  s.ia ? 'bg-green-600/10 text-green-700 dark:text-green-400' : 'bg-blue-500/10 text-blue-700 dark:text-blue-400'
+                }`}
+              >
                 <s.icon size={24} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{s.title}</h3>
               <p className="text-slate-600 dark:text-slate-400 mb-6">{s.text}</p>
-              <a
-                href={s.example.href}
-                className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 dark:text-amber-300 hover:gap-2.5 transition-all"
-              >
-                {s.example.label} <ArrowRight size={16} />
-              </a>
+              {s.ia ? (
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event('abrir-asistente'))}
+                  className="mt-auto self-start inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 dark:text-green-400 hover:gap-2.5 transition-all"
+                >
+                  {s.example.label} <ArrowRight size={16} />
+                </button>
+              ) : (
+                <a
+                  href={s.example.href}
+                  className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 dark:text-amber-300 hover:gap-2.5 transition-all"
+                >
+                  {s.example.label} <ArrowRight size={16} />
+                </a>
+              )}
             </motion.div>
           ))}
         </div>

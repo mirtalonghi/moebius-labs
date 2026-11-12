@@ -5,6 +5,7 @@ import Portfolio from './components/landing/Portfolio';
 import Education from './components/landing/Education';
 import Contact from './components/landing/Contact';
 import Header from './components/landing/Header';
+import Asistente from './components/landing/Asistente';
 import { LangProvider, useLang } from './i18n';
 
 function Pie() {
@@ -22,6 +23,7 @@ function App() {
     <div className="w-full min-h-screen bg-papel-100 text-slate-800 dark:bg-slate-950 dark:text-slate-200 selection:bg-blue-500/30">
       {/* Main content container */}
       <Header />
+      <Asistente />
       <main className="w-full relative">
         {/* Safe area padding for mobile devices */}
         <div
