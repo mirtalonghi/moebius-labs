@@ -26,7 +26,7 @@ const projects: Project[] = [
     type: 'detail',
     title: "Faiwel Wolfsdorf",
     description: "Sitio web para un artista surrealista: un viaje cromático desde Varsovia hasta Sudamérica, con galería de obra multiidioma y experiencia inmersiva.",
-    image: "/projects/faiwelwolfsdorf.webp",
+    image: "/projects/faiwel-pintura.webp",
     tags: ["React", "Vite", "Tailwind", "Framer Motion"],
     detailPage: "/proyectos/faiwel-wolfsdorf/",
     hideBadge: true,
