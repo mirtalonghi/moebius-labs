@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Github } from 'lucide-react';
+import { useLang } from '../../i18n';
 
 /*
  * Dos tipos de card:
@@ -11,6 +12,7 @@ import { ArrowRight, ArrowUpRight, Github } from 'lucide-react';
 type Project = {
   title: string;
   description: string;
+  descriptionEn: string;
   image: string;
   imagePosition?: string;
   tags: string[];
@@ -26,6 +28,7 @@ const projects: Project[] = [
     type: 'detail',
     title: "Faiwel Wolfsdorf",
     description: "Sitio web para un artista surrealista: un viaje cromático desde Varsovia hasta Sudamérica, con galería de obra multiidioma y experiencia inmersiva.",
+    descriptionEn: "Website for a surrealist painter: a chromatic journey from Warsaw to South America, with a multilingual artwork gallery and an immersive experience.",
     image: "/projects/faiwel-pintura.webp",
     tags: ["React", "Vite", "Tailwind", "Framer Motion"],
     detailPage: "/proyectos/faiwel-wolfsdorf/",
@@ -36,6 +39,7 @@ const projects: Project[] = [
     type: 'detail',
     title: "LOBA BAGUES",
     description: "Tienda online de cosmética con catálogo por categorías, promociones, carrito de compras y panel de gestión con autenticación.",
+    descriptionEn: "Cosmetics online store with a categorized catalog, promotions, shopping cart and an admin panel with authentication.",
     image: "/projects/loba-bagues.webp",
     imagePosition: "object-top",
     tags: ["Next.js", "TypeScript", "Tailwind", "Better Auth"],
@@ -47,6 +51,7 @@ const projects: Project[] = [
     type: 'detail',
     title: "SimpleDEX",
     description: "Exchange descentralizado en Solidity. Una demo interactiva muestra cómo funciona y qué fallas de la versión original corrige la versión 2.",
+    descriptionEn: "Decentralized exchange in Solidity. An interactive demo shows how it works and which flaws of the original version are fixed in version 2.",
     image: "/projects/simpledex.svg",
     tags: ["Solidity", "Scaffold-ETH", "Next.js", "Blockchain"],
     detailPage: "/proyectos/simpledex/",
@@ -58,6 +63,7 @@ const projects: Project[] = [
 const real = (url?: string) => (url && url !== '#' ? url : undefined);
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+  const { t } = useLang();
   const isDetail = project.type === 'detail';
   const href = isDetail ? project.detailPage : real(project.link);
   const github = real(project.github);
@@ -82,7 +88,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
         />
         {isDetail && !project.hideBadge && (
           <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-400 text-slate-950">
-            Caso de estudio
+            {t('Caso de estudio', 'Case study')}
           </span>
         )}
       </div>
@@ -101,7 +107,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
             project.title
           )}
         </h3>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">{project.description}</p>
+        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">{t(project.description, project.descriptionEn)}</p>
         <div className="flex flex-wrap gap-2 mb-5">
           {project.tags.map((tag) => (
             <span key={tag} className="text-xs font-medium px-2 py-1 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-md border border-blue-500/20">
@@ -117,20 +123,20 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
               className={`inline-flex items-center gap-1.5 text-sm font-semibold ${isDetail ? 'text-amber-700 dark:text-amber-300' : 'text-blue-700 dark:text-blue-400'}`}
             >
               {isDetail ? (
-                <>Ver el proyecto <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
+                <>{t('Ver el proyecto', 'View project')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
               ) : (
-                <>Visitar el sitio <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" /></>
+                <>{t('Visitar el sitio', 'Visit site')} <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" /></>
               )}
             </span>
           ) : (
-            <span className="text-sm text-slate-500">Próximamente</span>
+            <span className="text-sm text-slate-500">{t('Próximamente', 'Coming soon')}</span>
           )}
           {github && (
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Ver el código de ${project.title} en GitHub`}
+              aria-label={t(`Ver el código de ${project.title} en GitHub`, `View ${project.title} code on GitHub`)}
               className="relative z-10 min-w-touch min-h-touch -m-2 inline-flex items-center justify-center rounded-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
             >
               <Github size={20} />
@@ -143,6 +149,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 };
 
 const Portfolio: React.FC = () => {
+  const { t } = useLang();
   return (
     <section id="portfolio" className="py-24 px-6 bg-papel-100 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto">
@@ -152,9 +159,9 @@ const Portfolio: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Mi Portfolio</h2>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">{t('Mi Portfolio', 'Portfolio')}</h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Una selección de mis proyectos más recientes y destacados.
+            {t('Una selección de mis proyectos más recientes y destacados.', 'A selection of my most recent and notable projects.')}
           </p>
         </motion.div>
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, ChevronDown, Play, Pause } from 'lucide-react';
+import { ChevronDown, Pause, MessageCircle, ArrowDown, Music } from 'lucide-react';
 import { hapticFeedback } from '../../utils/mobileFeatures';
 import HeroVideo from './HeroVideo';
+import { useLang, whatsapp } from '../../i18n';
 
 // Partículas que esquivan el dedo (o el mouse): se apartan y vuelven al soltar.
 const Hero: React.FC = () => {
+  const { t } = useLang();
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -376,14 +378,6 @@ const Hero: React.FC = () => {
     };
   }, [audioUrl]);
 
-  const handleDownload = () => {
-    hapticFeedback('medium');
-    const link = document.createElement('a');
-    link.href = '/CV_Mirta_Longhitano.pdf';
-    link.download = 'CV_Mirta_Longhitano.pdf';
-    link.click();
-  };
-
   const togglePlay = async () => {
     try {
       await hapticFeedback('medium');
@@ -417,7 +411,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
+    <section id="inicio" ref={sectionRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-papel-100 dark:bg-slate-950">
       <div ref={containerRef} className="absolute inset-0 z-0 hidden dark:block" />
       <HeroVideo />
       <div className="absolute inset-0 dark:bg-black/35" />
@@ -443,36 +437,44 @@ const Hero: React.FC = () => {
             className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-slate-900/5 border border-slate-900/10 dark:bg-white/5 dark:border-white/10 rounded-full"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">Disponible para trabajar</span>
+            <span className="text-slate-700 dark:text-slate-300 text-sm font-medium tracking-tight">{t('Disponible para nuevos proyectos', 'Available for new projects')}</span>
           </motion.div>
 
-          <h1 className="font-display text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white mb-4 tracking-tighter">
-            Moebius Labs
+          <h1 className="font-display text-[clamp(2rem,9.6vw,3rem)] sm:text-6xl lg:text-[5.25rem] xl:text-8xl leading-[1.05] font-semibold text-slate-900 dark:text-white mb-5 tracking-tighter max-w-4xl mx-auto">
+            {t('Diseño web a medida que potencia tu ', 'Custom web design that grows your ')}
+            {/* La palabra clave en el mismo verde del botón, en degradé */}
+            <span className="bg-gradient-to-r from-green-800 via-green-600 to-emerald-400 dark:from-green-600 dark:via-emerald-400 dark:to-teal-200 bg-clip-text text-transparent pb-[0.08em] pr-[0.04em]">
+              {t('negocio', 'business')}
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 font-light tracking-tight">
-            Estudio profesional de diseño y desarrollo web
+          <p className="text-lg md:text-2xl text-slate-700 dark:text-slate-300 mb-3 font-light tracking-tight max-w-2xl mx-auto">
+            {t('Sitios y tiendas online para emprendimientos, artistas y pymes.', 'Websites and online stores for entrepreneurs, artists and small businesses.')}
+          </p>
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 mb-8 tracking-tight">
+            {t('Trabajás directo conmigo, sin intermediarios.', 'You work directly with me, no middlemen.')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <motion.button
+            <motion.a
+              href={whatsapp(t('Hola Mirta, vi tu web y quiero pedirte un presupuesto.', "Hi Mirta, I saw your website and I'd like to get a quote."))}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={handleDownload}
-              className="flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-colors w-full sm:w-auto justify-center"
             >
-              <Download size={20} />
-              Descargar CV
-            </motion.button>
-
-            <motion.button
+              <MessageCircle size={20} />
+              {t('Pedí tu presupuesto', 'Get a quote')}
+            </motion.a>
+            <motion.a
+              href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={togglePlay}
               className="flex items-center gap-2 bg-papel-100/70 text-slate-900 border border-papel-300 hover:bg-papel-200/60 dark:bg-slate-800/60 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition-colors w-full sm:w-auto justify-center"
             >
-              {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-              {isPlaying ? 'Pausar música' : 'Reproducir música'}
-            </motion.button>
+              <ArrowDown size={20} />
+              {t('Ver proyectos', 'See projects')}
+            </motion.a>
           </div>
 
           {errorMessage && (
@@ -481,14 +483,40 @@ const Hero: React.FC = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 15, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-10 flex flex-col items-center gap-2"
+      {/* Música: botón flotante abajo a la izquierda (mueve las partículas al ritmo) */}
+      <button
+        type="button"
+        onClick={togglePlay}
+        aria-label={isPlaying ? t('Pausar música', 'Pause music') : t('Reproducir música', 'Play music')}
+        title={isPlaying ? t('Pausar música', 'Pause music') : t('Música', 'Music')}
+        className={`fixed z-40 w-12 h-12 inline-flex items-center justify-center rounded-full border backdrop-blur-md shadow-lg transition-colors bg-papel-100/90 text-slate-800 border-papel-200 hover:bg-papel-200 dark:bg-slate-900/70 dark:text-white dark:border-white/10 dark:hover:bg-slate-800 ${
+          isPlaying ? 'ring-2 ring-green-500/70' : ''
+        }`}
+        style={{
+          bottom: 'calc(env(safe-area-inset-bottom) + 16px)',
+          left: 'calc(env(safe-area-inset-left) + 16px)',
+        }}
       >
-        <span className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={28} className="text-slate-500 dark:text-slate-400" />
-      </motion.div>
+        {isPlaying ? <Pause size={20} /> : <Music size={20} />}
+      </button>
+
+      {/* Indicador para bajar: también es un link a "Qué hago" */}
+      <motion.a
+        href="#servicios"
+        aria-label={t('Bajar a Qué hago', 'Scroll to What I do')}
+        animate={{ y: [0, 12, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-16 z-10 flex flex-col items-center gap-2 group md:[@media(max-height:900px)]:bottom-5 [@media(max-height:720px)]:hidden"
+      >
+        <span className="text-slate-800 dark:text-white text-sm font-semibold uppercase tracking-[0.25em] drop-shadow">
+          Scroll
+        </span>
+        <ChevronDown
+          size={36}
+          strokeWidth={2.75}
+          className="text-slate-900 dark:text-white drop-shadow transition-transform group-hover:translate-y-1"
+        />
+      </motion.a>
     </section>
   );
 };
